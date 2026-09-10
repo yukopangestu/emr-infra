@@ -47,7 +47,7 @@
   <!-- ============ AWS EDGE ============ -->
   <rect x="20" y="210" width="600" height="40" class="box-teal" rx="4" />
   <text x="50" y="232" class="zone-label">AWS Edge</text>
-  <text x="200" y="232" class="sublabel">Route 53 (DNS + health check) · WAF Regional · origin hanya dari Cloudflare</text>
+  <text x="200" y="232" class="sublabel">Route 53 (DNS + health check) · WAF Regional · origin terkunci</text>
 
   <!-- Arrows from AWS Edge to ALBs -->
   <line x1="130" y1="250" x2="130" y2="280" class="arrow" />
@@ -160,7 +160,7 @@
 
   <!-- DR Region -->
   <rect x="350" y="425" width="250" height="75" class="zone-border" rx="4" />
-  <text x="370" y="442" class="sublabel">DR pilot light (ap-southeast-1) · bersyarat legal</text>
+  <text x="370" y="442" class="sublabel">DR pilot light (ap-southeast-1) · bersyarat</text>
 
   <rect x="370" y="450" width="110" height="30" class="box-clay" rx="3" />
   <text x="425" y="467" text-anchor="middle" class="sublabel">RDS Replica</text>
