@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { ThemeService } from '../../../core/services/theme.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
@@ -29,6 +29,7 @@ export class HeaderComponent {
     this.themeService.toggleDarkMode();
     // Emit the NEW theme value after toggle
     this.isDarkMode$.pipe(
+      take(1),
       map(isDark => isDark ? 'dark' : 'light')
     ).subscribe(newTheme => {
       this.analyticsService.trackThemeToggle(newTheme);
