@@ -112,3 +112,62 @@ Duration: 767ms (transform 106ms, setup 416ms, import 91ms, tests 66ms, environm
 - No new npm dependencies were added
 - Components are ready for integration into the main app layout (Task 5)
 - Theme service integration properly tracks the NEW theme value after toggle (bug fix from initial spec)
+
+---
+
+# Task 4 Fix Round: Memory Leak in HeaderComponent
+
+## Issue
+The `toggleTheme()` method in `HeaderComponent` subscribed to `this.isDarkMode$` without unsubscribing. Each theme toggle created a new persistent subscription, leading to a memory leak.
+
+## Fix Applied
+
+### File Modified
+`src/app/shared/components/header/header.component.ts`
+
+### Exact Diff
+```diff
+-import { map } from 'rxjs/operators';
++import { map, take } from 'rxjs/operators';
+
+ toggleTheme(): void {
+   this.themeService.toggleDarkMode();
+   // Emit the NEW theme value after toggle
+   this.isDarkMode$.pipe(
++    take(1),
+     map(isDark => isDark ? 'dark' : 'light')
+   ).subscribe(newTheme => {
+     this.analyticsService.trackThemeToggle(newTheme);
+   });
+ }
+```
+
+### Solution
+Added the `take(1)` RxJS operator to the observable pipe. This ensures the subscription auto-completes after receiving the first emission, preventing subscription accumulation on repeated toggle clicks. The functional behavior is preserved—the analytics service still tracks the NEW post-toggle value.
+
+## Verification
+
+### Build Output
+```
+✔ Building...
+Browser bundles     | Initial total    | 259.74 kB | 72.49 kB
+Prerendered 10 static routes.
+Application bundle generation complete. [2.398 seconds]
+Output location: /Users/yukopangestu/yukopangestu/emr-infra/dist/emr-docs
+```
+
+### Test Output
+```
+Test Files: 3 passed (3)
+Tests: 9 passed (9)
+Duration: 716ms (transform 130ms, setup 452ms, import 81ms, tests 60ms, environment 1.23s)
+```
+
+### Verification Result
+- ✅ Build succeeds with all 10 routes prerendered
+- ✅ All 9 existing tests pass
+- ✅ No component-specific tests affected (as expected)
+- ✅ Memory leak eliminated while preserving correct behavior
+
+## Commit Hash
+`a4d4a10` - fix: prevent memory leak in HeaderComponent toggleTheme method
