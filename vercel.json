@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "/s[0-9].html",
+      "source": "/s[0-9](.*)",
       "headers": [
         {
           "key": "Cache-Control",

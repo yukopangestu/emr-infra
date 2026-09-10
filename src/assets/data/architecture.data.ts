@@ -44,7 +44,8 @@ export const architectureData: ArchitectureData = {
           type: 'warning',
           content: 'Konsekuensi yang tidak dapat dibalik dengan murah: kunci partisi wajib menjadi bagian dari setiap primary key dan unique constraint. Primary key berbentuk (tenant_id, id), bukan id tunggal. Seluruh foreign key ikut menjadi komposit.\n\nStruktur ini harus final sebelum implementasi modul klinis pertama dimulai. Mengubahnya setelah ada data produksi berarti merefaktor setiap entity dan setiap kueri.'
         }
-      ]
+      ],
+      subheadingDescription: 'Membatasi partisi pada kelas pertama menjaga jumlahnya terkendali. Pada 50 fasilitas dengan lima tabel bervolume tinggi, jumlah partisi berada di kisaran 250 — jauh di bawah titik di mana perencanaan kueri mulai terdegradasi.'
     },
     {
       id: 's3',
@@ -230,6 +231,8 @@ export const architectureData: ArchitectureData = {
       number: 9,
       title: 'Estimasi biaya bulanan',
       content: 'On-demand ap-southeast-3, tanpa Reserved Instance maupun Savings Plan. Angka USD adalah yang utama; nilai rupiah dihitung pada kurs JISDOR Bank Indonesia 9 September 2026 sebesar Rp17.552 per USD dan perlu dihitung ulang seiring pergerakan nilai tukar.\n\nPada 50 fasilitas, biaya infrastruktur berada di kisaran $101 per fasilitas per bulan, setara sekitar Rp1,78 juta. Biaya marjinal menambah satu fasilitas jauh di bawah angka rata-rata tersebut karena sebagian besar komponen bersifat tetap terhadap jumlah tenant.',
+      subheading: 'Yang bisa dipangkas, dan apa harganya',
+      subheadingDescription: 'Setiap penghematan punya konsekuensi. Tabel ini menyatakan konsekuensinya secara eksplisit agar keputusan diambil sadar, bukan karena angka terlihat besar.',
       tables: [
         {
           headers: ['Layer', 'Komponen', 'USD / bulan'],
@@ -272,5 +275,6 @@ export const architectureData: ArchitectureData = {
         }
       ]
     }
-  ]
+  ],
+  footer: 'Halaman ini merupakan arsitektur referensi untuk lingkungan produksi dan mendampingi Software Architecture Document, yang memuat evaluasi model multitenancy secara lengkap, registrasi risiko, siklus hidup tenant, serta daftar keputusan yang masih menunggu konfirmasi. Seluruh target performa, ketersediaan, dan biaya bersifat usulan dan memerlukan persetujuan pemangku kepentingan sebelum menjadi komitmen. Bagian yang menyangkut kewajiban regulasi perlindungan data dan retensi rekam medis memerlukan verifikasi penasihat hukum.'
 };
