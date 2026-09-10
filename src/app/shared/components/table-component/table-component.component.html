@@ -1,0 +1,18 @@
+<div class="table-wrapper">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th *ngFor="let header of table.headers" class="table-header">
+          {{ header }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.rows" class="table-row">
+        <td *ngFor="let cell of row; let i = index" class="table-cell">
+          {{ cell }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

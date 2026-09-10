@@ -1,0 +1,10 @@
+<figure class="diagram-figure">
+  <img
+    [src]="diagramSrc"
+    [alt]="caption || 'Architecture diagram'"
+    class="diagram-image"
+  />
+  <figcaption *ngIf="caption" class="diagram-caption">
+    {{ caption }}
+  </figcaption>
+</figure>

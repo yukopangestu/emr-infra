@@ -1,0 +1,28 @@
+<header class="app-header">
+  <div class="header-content">
+    <a routerLink="/" class="logo">
+      <span class="logo-text">EMR</span>
+    </a>
+
+    <div class="search-container">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search documentation..."
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        (focus)="onSearchFocus()"
+        aria-label="Search documentation"
+      />
+    </div>
+
+    <button
+      class="theme-toggle"
+      (click)="toggleTheme()"
+      [attr.aria-pressed]="(isDarkMode$ | async) ? 'true' : 'false'"
+      aria-label="Toggle dark mode"
+    >
+      <span class="theme-icon">{{ (isDarkMode$ | async) ? '☀️' : '🌙' }}</span>
+    </button>
+  </div>
+</header>

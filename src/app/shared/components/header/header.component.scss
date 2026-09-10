@@ -1,0 +1,123 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--panel);
+  border-bottom: 1px solid var(--rule);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    gap: var(--spacing-md);
+  }
+
+  .logo {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-shrink: 0;
+
+    .logo-text {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.5px;
+    }
+  }
+
+  .search-container {
+    flex: 1;
+    max-width: 400px;
+
+    .search-input {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: border-color 0.2s, background-color 0.2s;
+
+      &::placeholder {
+        color: var(--ink3);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--teal);
+        background: var(--panel);
+      }
+    }
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+    flex-shrink: 0;
+
+    .theme-icon {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      background: var(--panel);
+      border-color: var(--teal-line);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 var(--spacing-md);
+
+    .header-content {
+      gap: var(--spacing-sm);
+    }
+
+    .search-container {
+      max-width: 150px;
+
+      .search-input {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 13px;
+      }
+    }
+
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+
+      .theme-icon {
+        font-size: 16px;
+      }
+    }
+  }
+}

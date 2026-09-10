@@ -1,0 +1,25 @@
+<aside class="sidebar-nav">
+  <div class="sidebar-header">
+    <h2 class="sidebar-title">Platform EMR</h2>
+    <p class="sidebar-subtitle">Arsitektur referensi</p>
+  </div>
+
+  <nav class="sidebar-content">
+    <ol class="section-list">
+      <li *ngFor="let section of sections" class="section-item">
+        <a
+          [routerLink]="['/', section.id]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="section-link"
+        >
+          <span class="section-title">{{ section.title }}</span>
+        </a>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="sidebar-footer">
+    <span class="environment-badge">Production · ap-southeast-3</span>
+  </div>
+</aside>
