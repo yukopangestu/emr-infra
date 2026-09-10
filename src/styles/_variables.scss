@@ -1,0 +1,113 @@
+// CSS Custom Properties for Light/Dark Theme System
+
+:root {
+  // Colors - Light Mode (defaults)
+  --paper: #f5f7f6;
+  --panel: #ffffff;
+  --ink: #16211e;
+  --ink2: #4a5a55;
+  --ink3: #7c8a85;
+  --rule: #d9e0dd;
+  --rule2: #c3ceca;
+
+  // Semantic Colors
+  --teal: #0f6e56;
+  --teal-soft: #e1efe9;
+  --teal-line: #8fc4b2;
+  --indigo: #3b4e8c;
+  --indigo-soft: #e7eaf4;
+  --indigo-line: #a9b6dc;
+  --clay: #9e4a34;
+  --clay-soft: #f5e7e2;
+  --clay-line: #dcae9e;
+  --amber: #8a6108;
+  --amber-soft: #f7eeda;
+  --amber-line: #d9be84;
+
+  // Typography
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  // Spacing
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  // Layout
+  --sidebar-width: 238px;
+  --header-height: 64px;
+}
+
+// Dark Mode - System Preference
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #101614;
+    --panel: #18211e;
+    --ink: #e6ece9;
+    --ink2: #a8b6b1;
+    --ink3: #7a8884;
+    --rule: #2a3733;
+    --rule2: #3a4a45;
+    --teal: #5dcaa5;
+    --teal-soft: #14352c;
+    --teal-line: #2f6b58;
+    --indigo: #8fa3de;
+    --indigo-soft: #1b2340;
+    --indigo-line: #3e4c7e;
+    --clay: #d98a72;
+    --clay-soft: #33201a;
+    --clay-line: #6e4335;
+    --amber: #d9b36a;
+    --amber-soft: #2e2617;
+    --amber-line: #6b5a32;
+  }
+}
+
+// Dark Mode - Forced via data-theme attribute
+[data-theme='dark'] {
+  --paper: #101614;
+  --panel: #18211e;
+  --ink: #e6ece9;
+  --ink2: #a8b6b1;
+  --ink3: #7a8884;
+  --rule: #2a3733;
+  --rule2: #3a4a45;
+  --teal: #5dcaa5;
+  --teal-soft: #14352c;
+  --teal-line: #2f6b58;
+  --indigo: #8fa3de;
+  --indigo-soft: #1b2340;
+  --indigo-line: #3e4c7e;
+  --clay: #d98a72;
+  --clay-soft: #33201a;
+  --clay-line: #6e4335;
+  --amber: #d9b36a;
+  --amber-soft: #2e2617;
+  --amber-line: #6b5a32;
+}
+
+// Light Mode - Force via data-theme attribute
+[data-theme='light'] {
+  --paper: #f5f7f6;
+  --panel: #ffffff;
+  --ink: #16211e;
+  --ink2: #4a5a55;
+  --ink3: #7c8a85;
+  --rule: #d9e0dd;
+  --rule2: #c3ceca;
+  --teal: #0f6e56;
+  --teal-soft: #e1efe9;
+  --teal-line: #8fc4b2;
+  --indigo: #3b4e8c;
+  --indigo-soft: #e7eaf4;
+  --indigo-line: #a9b6dc;
+  --clay: #9e4a34;
+  --clay-soft: #f5e7e2;
+  --clay-line: #dcae9e;
+  --amber: #8a6108;
+  --amber-soft: #f7eeda;
+  --amber-line: #d9be84;
+}
