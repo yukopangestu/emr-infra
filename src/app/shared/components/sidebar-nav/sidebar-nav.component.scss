@@ -144,3 +144,35 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .sidebar-nav {
+    position: fixed;
+    z-index: 160;
+    top: var(--header-height);
+    left: 0;
+    width: min(320px, 86vw);
+    height: calc(100vh - var(--header-height));
+    border-right: 1px solid var(--rule);
+    border-bottom: 0;
+    box-shadow: 8px 0 24px rgb(0 0 0 / 12%);
+    transform: translateX(-105%);
+    transition: transform 0.2s ease;
+
+    &.open {
+      transform: translateX(0);
+    }
+
+    .sidebar-content {
+      margin-bottom: var(--spacing-lg);
+
+      .section-list {
+        display: block;
+
+        .section-item {
+          margin-bottom: var(--spacing-sm);
+        }
+      }
+    }
+  }
+}

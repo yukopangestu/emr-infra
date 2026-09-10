@@ -11,8 +11,9 @@ import { CommonModule } from '@angular/common';
 export class DiagramBoxComponent {
   @Input() diagramFile!: string;
   @Input() caption?: string;
+  @Input() altText = 'Architecture diagram';
 
   get diagramSrc(): string {
-    return `/diagrams/${this.diagramFile}`;
+    return `/assets/diagrams/${this.diagramFile}`;
   }
 }

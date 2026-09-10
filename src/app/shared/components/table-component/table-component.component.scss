@@ -30,7 +30,7 @@
         }
       }
 
-      .table-cell {
+    .table-cell {
         padding: var(--spacing-md);
         text-align: left;
 
@@ -39,6 +39,15 @@
           color: var(--ink);
         }
       }
+    }
+
+    .ok {
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    .no {
+      color: var(--ink3);
     }
   }
 }

@@ -18,6 +18,27 @@
     gap: var(--spacing-md);
   }
 
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 36px;
+    height: 36px;
+    padding: 7px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper);
+    cursor: pointer;
+
+    span {
+      display: block;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ink2);
+    }
+  }
+
   .logo {
     text-decoration: none;
     display: flex;
@@ -119,5 +140,11 @@
         font-size: 16px;
       }
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-header .menu-toggle {
+    display: flex;
   }
 }

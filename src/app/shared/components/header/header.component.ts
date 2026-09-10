@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
@@ -11,7 +10,7 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -24,6 +23,7 @@ export class HeaderComponent {
 
   @Output() search = new EventEmitter<string>();
   @Output() openSearch = new EventEmitter<void>();
+  @Output() menuToggle = new EventEmitter<void>();
 
   toggleTheme(): void {
     this.themeService.toggleDarkMode();

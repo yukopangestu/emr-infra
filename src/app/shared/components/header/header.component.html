@@ -1,18 +1,23 @@
 <header class="app-header">
   <div class="header-content">
-    <a routerLink="/" class="logo">
-      <span class="logo-text">EMR</span>
+    <button type="button" class="menu-toggle" (click)="menuToggle.emit()" aria-label="Buka navigasi">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="/" class="logo" aria-label="Kembali ke halaman utama">
+      <span class="logo-text">EMR Docs</span>
     </a>
 
     <div class="search-container">
       <input
         type="text"
         class="search-input"
-        placeholder="Search documentation..."
+        placeholder="Cari dokumentasi..."
         [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
         (keyup.enter)="onSearch()"
         (focus)="onSearchFocus()"
-        aria-label="Search documentation"
+        aria-label="Cari dokumentasi"
       />
     </div>
 
@@ -20,7 +25,7 @@
       class="theme-toggle"
       (click)="toggleTheme()"
       [attr.aria-pressed]="(isDarkMode$ | async) ? 'true' : 'false'"
-      aria-label="Toggle dark mode"
+      aria-label="Ganti tema terang atau gelap"
     >
       <span class="theme-icon">{{ (isDarkMode$ | async) ? '☀️' : '🌙' }}</span>
     </button>

@@ -16,6 +16,8 @@ export interface Section {
   number: number;
   title: string;
   content: string;
+  subheading?: string;
+  subheadingDescription?: string;
   diagram?: { file: string; caption: string };
   tables?: Table[];
   callouts?: Callout[];
@@ -29,6 +31,7 @@ export interface ArchitectureData {
   lede: string;
   metadata: Record<string, string>;
   sections: Section[];
+  footer?: string;
 }
 
 @Injectable({ providedIn: 'root' })

@@ -23,7 +23,15 @@ export class SearchService {
       this.field('title', { boost: 10 });
       this.field('content');
       sections.forEach((section) => {
-        this.add({ id: section.id, title: section.title, content: section.content });
+        const structuredContent = [
+          section.content,
+          ...(section.cards ?? []).flatMap((card) => [card.title, card.description]),
+          ...(section.steps ?? []).flatMap((step) => [step.title, step.description]),
+          ...(section.numberedList ?? []),
+          ...(section.tables ?? []).flatMap((table) => [...table.headers, ...table.rows.flat()]),
+          ...(section.callouts ?? []).map((callout) => callout.content),
+        ].join(' ');
+        this.add({ id: section.id, title: section.title, content: structuredContent });
       });
     });
   }

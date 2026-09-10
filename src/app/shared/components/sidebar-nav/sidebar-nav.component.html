@@ -1,18 +1,13 @@
-<aside class="sidebar-nav">
+<aside class="sidebar-nav" [class.open]="mobileOpen">
   <div class="sidebar-header">
-    <h2 class="sidebar-title">Platform EMR</h2>
+    <h2 class="sidebar-title">Platform EMR multitenant</h2>
     <p class="sidebar-subtitle">Arsitektur referensi</p>
   </div>
 
   <nav class="sidebar-content">
     <ol class="section-list">
       <li *ngFor="let section of sections" class="section-item">
-        <a
-          [routerLink]="['/', section.id]"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="section-link"
-        >
+        <a [href]="'#' + section.id" class="section-link" (click)="navigate.emit(section.id)">
           <span class="section-title">{{ section.title }}</span>
         </a>
       </li>

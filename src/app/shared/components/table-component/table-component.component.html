@@ -9,8 +9,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of table.rows" class="table-row">
-        <td *ngFor="let cell of row; let i = index" class="table-cell">
-          {{ cell }}
+        <td *ngFor="let cell of row; let i = index" class="table-cell" [class.ok]="cell.includes('✓') || cell === 'Penegakan akhir'" [class.no]="cell === '—'" [class.n]="i === table.headers.length - 1">
+          <span [innerHTML]="cell"></span>
         </td>
       </tr>
     </tbody>

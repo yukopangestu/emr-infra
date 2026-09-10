@@ -16,4 +16,8 @@ export class CalloutComponent {
   get calloutClass(): string {
     return `callout callout--${this.callout.type}`;
   }
+
+  get contentHtml(): string {
+    return this.callout.content.replaceAll('\n\n', '<br><br>');
+  }
 }
