@@ -126,7 +126,7 @@
 
   <!-- PRIVATE DATA SUBNETS -->
   <rect x="40" y="640" width="280" height="90" class="zone-border" rx="3" />
-  <text x="60" y="657" class="sublabel">Private Data Subnets · tanpa rute internet</text>
+  <text x="60" y="723" class="sublabel">Private Data Subnets · tanpa rute internet</text>
 
   <rect x="60" y="667" width="130" height="35" class="box" rx="3" />
   <text x="125" y="689" text-anchor="middle" class="label">RDS PostgreSQL</text>
