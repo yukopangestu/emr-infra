@@ -9,6 +9,7 @@ export interface Table {
 export interface Callout {
   type: 'info' | 'warning' | 'note';
   content: string;
+  postContent?: string[];
 }
 
 export interface Section {
@@ -24,6 +25,7 @@ export interface Section {
   cards?: { title: string; description: string }[];
   steps?: { title: string; description: string; isGate?: boolean }[];
   numberedList?: string[];
+  postContent?: string[];
 }
 
 export interface ArchitectureData {
