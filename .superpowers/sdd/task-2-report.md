@@ -100,7 +100,7 @@ src/
 
 ## Git Commit Hash
 
-(To be provided after commit)
+`f83a5e45838dd18ea5a18b3049fdff8b9ea54766`
 
 ## Testing Notes
 

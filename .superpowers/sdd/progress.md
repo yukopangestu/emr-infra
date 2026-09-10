@@ -62,3 +62,8 @@
 
 **Cost if wrong:** If standalone/Vitest choice turns out unworkable downstream, the fix is rewriting component decorators and route config — mechanical, not a full re-scaffold. If prerender via `@angular/ssr` doesn't fully satisfy "no server-side rendering at runtime," fallback is pure client-side SPA with a single index.html (loses per-route static HTML, acceptable degradation, not a rebuild).
 
+
+Task 1: fix round 1/5 (1 addressed, 0 open; commits d2bb823..cbe7397)
+Task 1: complete (commits c9a6cd3..cbe7397, 1 fix round — architecture ruling recorded above)
+
+Task 2: complete (commits cbe7397..f83a5e4, review clean)
