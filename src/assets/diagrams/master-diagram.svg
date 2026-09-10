@@ -1,4 +1,4 @@
-<svg viewBox="80 0 800 792" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="80 0 800 770" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
       .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; font-weight: 600; fill: #16211E; }
@@ -38,7 +38,7 @@
   <!-- ============ CLOUDFLARE EDGE ============ -->
   <rect x="20" y="140" width="600" height="40" class="box-teal" rx="4" />
   <text x="50" y="162" class="zone-label">Cloudflare Edge</text>
-  <text x="450" y="162" class="sublabel">DNS, DDoS Protection, Cache</text>
+  <text x="200" y="162" class="sublabel">WAF · DDoS · rate limit per tenant · Zero Trust Access (staf)</text>
 
   <!-- Arrows from Cloudflare to AWS -->
   <line x1="130" y1="180" x2="130" y2="210" class="arrow" />
@@ -47,14 +47,14 @@
   <!-- ============ AWS EDGE ============ -->
   <rect x="20" y="210" width="600" height="40" class="box-teal" rx="4" />
   <text x="50" y="232" class="zone-label">AWS Edge</text>
-  <text x="450" y="232" class="sublabel">Route 53 DNS + protected ALB origin</text>
+  <text x="200" y="232" class="sublabel">Route 53 (DNS + health check) · WAF Regional · origin hanya dari Cloudflare</text>
 
   <!-- Arrows from AWS Edge to ALBs -->
   <line x1="130" y1="250" x2="130" y2="280" class="arrow" />
   <line x1="330" y1="250" x2="330" y2="280" class="arrow" />
 
   <!-- ============ VPC ZONE ============ -->
-  <rect x="20" y="280" width="600" height="440" class="zone-border" rx="4" />
+  <rect x="20" y="280" width="600" height="460" class="zone-border" rx="4" />
   <text x="40" y="298" class="zone-label">AWS VPC</text>
 
   <!-- PUBLIC SUBNETS -->
@@ -82,8 +82,8 @@
   <line x1="255" y1="370" x2="255" y2="430" class="line" />
 
   <!-- PRIVATE APP SUBNETS - EKS -->
-  <rect x="40" y="430" width="280" height="150" class="zone-border" rx="3" />
-  <text x="60" y="447" class="sublabel">Private App Subnets · Java BE Services</text>
+  <rect x="40" y="430" width="280" height="195" class="zone-border" rx="3" />
+  <text x="60" y="447" class="sublabel">Private App Subnets · EKS (Java services)</text>
 
   <!-- Gateway services -->
   <rect x="60" y="455" width="100" height="30" class="box-indigo" rx="3" />
@@ -117,25 +117,29 @@
   <rect x="234" y="535" width="48" height="30" class="box" rx="3" />
   <text x="258" y="552" text-anchor="middle" class="sublabel">Audit</text>
 
+  <!-- EKS platform workloads (inside app subnet) -->
+  <rect x="60" y="580" width="110" height="30" class="box-indigo" rx="3" />
+  <text x="115" y="599" text-anchor="middle" class="label">PgBouncer ×2</text>
+
+  <rect x="190" y="580" width="92" height="30" class="box" rx="3" />
+  <text x="236" y="599" text-anchor="middle" class="sublabel">Reporting</text>
+
   <!-- PRIVATE DATA SUBNETS -->
-  <rect x="40" y="590" width="280" height="120" class="zone-border" rx="3" />
-  <text x="60" y="607" class="sublabel">Private Data Subnets</text>
+  <rect x="40" y="640" width="280" height="90" class="zone-border" rx="3" />
+  <text x="60" y="657" class="sublabel">Private Data Subnets · tanpa rute internet</text>
 
-  <rect x="60" y="625" width="90" height="35" class="box" rx="3" />
-  <text x="105" y="645" text-anchor="middle" class="label">PgBouncer</text>
-
-  <rect x="170" y="625" width="130" height="35" class="box" rx="3" />
-  <text x="235" y="645" text-anchor="middle" class="label">RDS PostgreSQL</text>
+  <rect x="60" y="667" width="130" height="35" class="box" rx="3" />
+  <text x="125" y="689" text-anchor="middle" class="label">RDS PostgreSQL</text>
 
   <!-- Secondary components -->
-  <circle cx="80" cy="685" r="12" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
-  <text x="80" y="689" text-anchor="middle" class="sublabel" font-size="9">Read</text>
+  <circle cx="215" cy="684" r="14" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
+  <text x="215" y="688" text-anchor="middle" class="sublabel" font-size="9">Read</text>
 
-  <circle cx="140" cy="685" r="12" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
-  <text x="140" y="689" text-anchor="middle" class="sublabel" font-size="9">Cache</text>
+  <circle cx="255" cy="684" r="14" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
+  <text x="255" y="688" text-anchor="middle" class="sublabel" font-size="9">Redis</text>
 
-  <circle cx="200" cy="685" r="12" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
-  <text x="200" y="689" text-anchor="middle" class="sublabel" font-size="9">MQ</text>
+  <circle cx="295" cy="684" r="14" fill="#FFFFFF" stroke="#D9E0DD" stroke-width="1" />
+  <text x="295" y="688" text-anchor="middle" class="sublabel" font-size="9">MQ</text>
 
   <!-- ============ PLATFORM SERVICES (Right Column) ============ -->
   <!-- Platform Services header -->
@@ -156,7 +160,7 @@
 
   <!-- DR Region -->
   <rect x="350" y="425" width="250" height="75" class="zone-border" rx="4" />
-  <text x="370" y="442" class="sublabel">Candidate DR (ap-southeast-1)</text>
+  <text x="370" y="442" class="sublabel">DR pilot light (ap-southeast-1) · bersyarat legal</text>
 
   <rect x="370" y="450" width="110" height="30" class="box-clay" rx="3" />
   <text x="425" y="467" text-anchor="middle" class="sublabel">RDS Replica</text>
@@ -184,11 +188,12 @@
   <rect x="370" y="683" width="12" height="10" class="box-clay" rx="2" />
   <text x="395" y="692" class="sublabel">candidate / approval-gated</text>
 
-  <!-- Connection lines from services to data layer -->
-  <line x1="175" y1="565" x2="175" y2="590" class="line" />
+  <!-- Services -> PgBouncer -> RDS (runtime path) -->
+  <line x1="115" y1="565" x2="115" y2="580" class="line" />
+  <line x1="115" y1="610" x2="115" y2="667" class="arrow" />
 
-  <!-- Return arrows from data to services -->
-  <line x1="105" y1="625" x2="105" y2="570" class="arrow" />
+  <!-- Reporting -> read replica (dependency) -->
+  <line x1="236" y1="610" x2="215" y2="670" class="line" stroke-dasharray="5,3" />
 
   <!-- Right column connections -->
   <line x1="320" y1="460" x2="350" y2="460" class="line" />
