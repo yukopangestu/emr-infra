@@ -67,3 +67,18 @@ Task 1: fix round 1/5 (1 addressed, 0 open; commits d2bb823..cbe7397)
 Task 1: complete (commits c9a6cd3..cbe7397, 1 fix round — architecture ruling recorded above)
 
 Task 2: complete (commits cbe7397..f83a5e4, review clean)
+
+Task 3: minor (deferred): ThemeService.applyTheme localStorage access not directly guarded (indirectly safe via earlier document check) — theme.service.ts:32-40
+Task 3: complete (commits f83a5e4..d2e5953, review clean — 1 minor deferred)
+
+Task 4: fix round 1/5 (1 addressed, 0 open; commits 0bb35b7..9ffa3ec)
+Task 4: complete (commits d2e5953..9ffa3ec, 1 fix round)
+
+## Ruling: Task 5 scope correction (2026-09-10)
+
+**Conflict:** The plan's Task 5 assumes 9 SVG diagrams (one per section). Checking the actual source HTML (`emr-arsitektur-produksi-aws.html`, read in full at conversation start): only sections s1 and s2 contain real `<svg>` diagrams (Gambar 1: master architecture diagram, lines 165-283; Gambar 2: partition/RLS diagram, lines 293-323). Sections s3, s5, s6, s7, s9 are HTML tables only (no diagram). Section s4 is a CSS grid of 6 "cards" (compute placement options). Section s8 is a horizontal flow-step strip (7 steps, one marked "gate") plus a separately numbered rules list (10 items).
+
+**Ruling:** Task 5 extracts only the 2 real SVGs that exist. The `Section` interface (already committed in Task 3's `content.service.ts`) gets extended with three new OPTIONAL fields to preserve content fidelity for s4 and s8, since `diagram`/`tables`/`callouts` alone can't represent cards or flow-steps: `cards?: {title: string; description: string}[]`, `steps?: {title: string; description: string; isGate?: boolean}[]`, `numberedList?: string[]`. This is an additive, non-breaking change to an already-committed interface (existing consumers unaffected — all new fields optional). Folded into Task 5's dispatch since Task 6 (data population) needs these fields to exist first.
+
+**Cost if wrong:** If the extra fields turn out unnecessary or wrongly shaped, fixing them means editing `content.service.ts` plus whichever components consume them — mechanical, low blast radius since nothing consumes them yet.
+

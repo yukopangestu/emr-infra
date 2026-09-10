@@ -19,6 +19,9 @@ export interface Section {
   diagram?: { file: string; caption: string };
   tables?: Table[];
   callouts?: Callout[];
+  cards?: { title: string; description: string }[];
+  steps?: { title: string; description: string; isGate?: boolean }[];
+  numberedList?: string[];
 }
 
 export interface ArchitectureData {

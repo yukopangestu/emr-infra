@@ -1,0 +1,68 @@
+<svg viewBox="0 0 960 292" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9e; stroke-width: 1.5; }
+      .rls-band { fill: #0F6E56; opacity: 0.1; stroke: #0F6E56; stroke-width: 2; }
+      .rls-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .rls-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #0F6E56; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .line { stroke: #D9E0DD; stroke-width: 1; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="30" text-anchor="middle" class="title">Partisi &amp; Row-Level Security</text>
+
+  <!-- ============ APPLICATION LAYER ============ -->
+  <rect x="320" y="50" width="320" height="50" class="box" rx="4" />
+  <text x="480" y="72" text-anchor="middle" class="label">Satu Tabel Logis</text>
+  <text x="480" y="88" text-anchor="middle" class="sublabel">Aplikasi menulis kueri tanpa filter tenant</text>
+
+  <!-- Arrow down to RLS -->
+  <line x1="480" y1="100" x2="480" y2="125" class="arrow" />
+
+  <!-- ============ ROW-LEVEL SECURITY LAYER ============ -->
+  <rect x="60" y="125" width="840" height="50" class="rls-band" rx="4" />
+  <rect x="60" y="125" width="840" height="50" fill="none" stroke="#0F6E56" stroke-width="2" rx="4" />
+
+  <text x="100" y="150" class="rls-label">Row-Level Security</text>
+  <text x="420" y="150" class="rls-desc">Penyaringan di dalam mesin basis data · berlaku juga bagi pemilik tabel · tidak dapat dilewati aplikasi</text>
+
+  <!-- Arrow down to partitions -->
+  <line x1="480" y1="175" x2="480" y2="200" class="arrow" />
+
+  <!-- ============ PARTITION LAYER ============ -->
+  <!-- Partition A -->
+  <rect x="80" y="200" width="180" height="70" class="box-teal" rx="4" />
+  <text x="170" y="222" text-anchor="middle" class="label">Partisi</text>
+  <text x="170" y="240" text-anchor="middle" class="sublabel">Fasilitas A</text>
+  <text x="170" y="260" text-anchor="middle" class="sublabel" font-size="10">(teal data rows)</text>
+
+  <!-- Partition B -->
+  <rect x="290" y="200" width="180" height="70" class="box-teal" rx="4" />
+  <text x="380" y="222" text-anchor="middle" class="label">Partisi</text>
+  <text x="380" y="240" text-anchor="middle" class="sublabel">Fasilitas B</text>
+  <text x="380" y="260" text-anchor="middle" class="sublabel" font-size="10">(teal data rows)</text>
+
+  <!-- Partition C -->
+  <rect x="500" y="200" width="180" height="70" class="box-teal" rx="4" />
+  <text x="590" y="222" text-anchor="middle" class="label">Partisi</text>
+  <text x="590" y="240" text-anchor="middle" class="sublabel">Fasilitas C</text>
+  <text x="590" y="260" text-anchor="middle" class="sublabel" font-size="10">(teal data rows)</text>
+
+  <!-- Spare Partition (clay/warning colored) -->
+  <rect x="710" y="200" width="180" height="70" class="box-clay" rx="4" />
+  <text x="800" y="218" text-anchor="middle" class="label">Partisi Cadangan</text>
+  <text x="800" y="236" text-anchor="middle" class="sublabel">Harus selalu kosong</text>
+  <text x="800" y="254" text-anchor="middle" class="sublabel" font-size="10">(spare/reserved)</text>
+
+</svg>
