@@ -61,6 +61,14 @@
           />
         }
 
+        @for (diagram of section.diagrams ?? []; track diagram.file) {
+          <app-diagram-box
+            [altText]="section.title"
+            [caption]="diagram.caption"
+            [diagramFile]="diagram.file"
+          />
+        }
+
         @if (section.cards) {
           <div class="cards">
             @for (card of section.cards; track card.title) {

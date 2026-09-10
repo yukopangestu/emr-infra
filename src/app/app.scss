@@ -8,9 +8,9 @@
 }
 
 .document {
-  max-width: 1000px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 44px 46px 90px calc(var(--sidebar-width) + 46px);
+  padding: 44px 40px 90px calc(var(--sidebar-width) + 40px);
 }
 
 .masthead {
@@ -83,7 +83,8 @@
 }
 
 .document-section > p {
-  max-width: 68ch;
+  max-width: none;
+  text-align: justify;
 }
 
 .cards {
@@ -202,16 +203,19 @@
 
 .subheading-description {
   margin-top: 8px !important;
+  max-width: none !important;
+  text-align: justify;
 }
 
 .document-footer {
-  max-width: 70ch;
+  max-width: none;
   margin-top: 56px;
   padding-top: 22px;
   border-top: 1px solid var(--rule);
   color: var(--ink3);
   font-family: var(--font-sans);
   font-size: 12.5px;
+  text-align: justify;
 }
 
 .search-backdrop {

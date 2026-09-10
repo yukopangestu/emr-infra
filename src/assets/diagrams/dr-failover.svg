@@ -1,0 +1,57 @@
+<svg viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; fill: #4A5A55; }
+      .small { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #7C8A85; }
+      .region { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 2; stroke-dasharray: 5,3; }
+      .primary { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .candidate { fill: #F7EEDA; stroke: #D9BE84; stroke-width: 1.5; }
+      .data { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .dashed { stroke: #9E4A34; stroke-width: 2; stroke-dasharray: 7,5; fill: none; marker-end: url(#alerthead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+    <marker id="alerthead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9E4A34" />
+    </marker>
+  </defs>
+
+  <text x="480" y="30" text-anchor="middle" class="title">DR / Failover Strategy — Status: Proposed</text>
+
+  <rect x="50" y="60" width="370" height="260" class="region" rx="6" />
+  <text x="75" y="88" class="label">Primary · ap-southeast-3 (Jakarta)</text>
+  <text x="75" y="108" class="sublabel">Production traffic</text>
+  <rect x="80" y="135" width="310" height="45" class="primary" rx="4" />
+  <text x="235" y="162" text-anchor="middle" class="label">Cloudflare Edge + ALB</text>
+  <rect x="80" y="200" width="145" height="55" class="primary" rx="4" />
+  <text x="152" y="224" text-anchor="middle" class="label">EKS</text>
+  <text x="152" y="243" text-anchor="middle" class="sublabel">Full capacity</text>
+  <rect x="245" y="200" width="145" height="55" class="data" rx="4" />
+  <text x="317" y="224" text-anchor="middle" class="label">RDS + S3</text>
+  <text x="317" y="243" text-anchor="middle" class="sublabel">Source of truth</text>
+  <text x="80" y="285" class="small">Multi-AZ, immutable backup, restore tested</text>
+
+  <rect x="540" y="60" width="370" height="260" class="region" rx="6" />
+  <text x="565" y="88" class="label">Candidate DR · ap-southeast-1 (Singapore)</text>
+  <text x="565" y="108" class="sublabel">Cross-border compliance decision required</text>
+  <rect x="570" y="135" width="310" height="45" class="candidate" rx="4" />
+  <text x="725" y="162" text-anchor="middle" class="label">Failover origin + DNS switch</text>
+  <rect x="570" y="200" width="145" height="55" class="candidate" rx="4" />
+  <text x="642" y="224" text-anchor="middle" class="label">EKS</text>
+  <text x="642" y="243" text-anchor="middle" class="sublabel">Scale-up required</text>
+  <rect x="735" y="200" width="145" height="55" class="data" rx="4" />
+  <text x="807" y="224" text-anchor="middle" class="label">Replica + S3</text>
+  <text x="807" y="243" text-anchor="middle" class="sublabel">Promotion required</text>
+  <text x="570" y="285" class="small">Strategy: pilot light unless reduced stack is always running</text>
+
+  <line x1="420" y1="157" x2="540" y2="157" class="dashed" />
+  <text x="480" y="145" text-anchor="middle" class="small">failover after approval</text>
+  <line x1="420" y1="228" x2="540" y2="228" class="arrow" />
+
+  <rect x="160" y="350" width="640" height="42" class="candidate" rx="4" />
+  <text x="480" y="376" text-anchor="middle" class="sublabel">BLOCKED — Legal/Compliance: approve residency, replication, support access, and key access before go-live</text>
+</svg>

@@ -1,0 +1,60 @@
+<svg viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .boundary { fill: none; stroke: #D9E0DD; stroke-width: 2; stroke-dasharray: 5,3; }
+      .client { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .trust { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .service { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .data { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <text x="480" y="30" text-anchor="middle" class="title">Identity &amp; Trust Boundaries — Proposed</text>
+
+  <rect x="25" y="55" width="175" height="240" class="boundary" rx="6" />
+  <text x="42" y="80" class="sublabel">Client boundary</text>
+  <rect x="45" y="105" width="135" height="50" class="client" rx="4" />
+  <text x="112" y="128" text-anchor="middle" class="label">Mobile App</text>
+  <text x="112" y="146" text-anchor="middle" class="sublabel">Flutter</text>
+  <rect x="45" y="180" width="135" height="50" class="client" rx="4" />
+  <text x="112" y="203" text-anchor="middle" class="label">Admin Dashboard</text>
+  <text x="112" y="221" text-anchor="middle" class="sublabel">Angular</text>
+
+  <rect x="225" y="55" width="210" height="240" class="boundary" rx="6" />
+  <text x="242" y="80" class="sublabel">Identity boundary</text>
+  <rect x="250" y="125" width="160" height="75" class="trust" rx="4" />
+  <text x="330" y="150" text-anchor="middle" class="label">IdP + MFA</text>
+  <text x="330" y="170" text-anchor="middle" class="sublabel">Tenant-bound claims</text>
+  <text x="330" y="187" text-anchor="middle" class="sublabel">Break-glass audited</text>
+
+  <rect x="460" y="55" width="220" height="240" class="boundary" rx="6" />
+  <text x="477" y="80" class="sublabel">Application boundary</text>
+  <rect x="485" y="105" width="170" height="50" class="trust" rx="4" />
+  <text x="570" y="128" text-anchor="middle" class="label">Cloudflare Access</text>
+  <text x="570" y="146" text-anchor="middle" class="sublabel">Protected ALB origin</text>
+  <rect x="485" y="180" width="170" height="50" class="service" rx="4" />
+  <text x="570" y="203" text-anchor="middle" class="label">Java Services on EKS</text>
+  <text x="570" y="221" text-anchor="middle" class="sublabel">Pod Identity / IRSA</text>
+
+  <rect x="705" y="55" width="230" height="240" class="boundary" rx="6" />
+  <text x="722" y="80" class="sublabel">Resource boundary</text>
+  <rect x="730" y="105" width="180" height="50" class="data" rx="4" />
+  <text x="820" y="128" text-anchor="middle" class="label">RDS + RLS</text>
+  <text x="820" y="146" text-anchor="middle" class="sublabel">Transaction tenant context</text>
+  <rect x="730" y="180" width="180" height="50" class="data" rx="4" />
+  <text x="820" y="203" text-anchor="middle" class="label">S3 / Redis / MQ</text>
+  <text x="820" y="221" text-anchor="middle" class="sublabel">Tenant-aware policies</text>
+
+  <line x1="180" y1="130" x2="250" y2="150" class="arrow" />
+  <line x1="180" y1="205" x2="250" y2="170" class="arrow" />
+  <line x1="410" y1="162" x2="485" y2="130" class="arrow" />
+  <line x1="655" y1="205" x2="730" y2="130" class="arrow" />
+  <line x1="655" y1="205" x2="730" y2="205" class="arrow" />
+</svg>

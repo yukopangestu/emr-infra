@@ -25,11 +25,11 @@
   <!-- ============ USERS LAYER ============ -->
   <rect x="50" y="60" width="160" height="50" class="box" rx="4" />
   <text x="130" y="82" text-anchor="middle" class="label">Pasien &amp;</text>
-  <text x="130" y="100" text-anchor="middle" class="label">Mobile App</text>
+  <text x="130" y="100" text-anchor="middle" class="label">Mobile App (Flutter)</text>
 
   <rect x="250" y="60" width="160" height="50" class="box" rx="4" />
-  <text x="330" y="82" text-anchor="middle" class="label">Staf Fasilitas</text>
-  <text x="330" y="100" text-anchor="middle" class="label">Kesehatan</text>
+  <text x="330" y="82" text-anchor="middle" class="label">Admin Dashboard</text>
+  <text x="330" y="100" text-anchor="middle" class="label">(Angular)</text>
 
   <!-- Arrows from users to Cloudflare -->
   <line x1="130" y1="110" x2="130" y2="140" class="arrow" />
@@ -47,7 +47,7 @@
   <!-- ============ AWS EDGE ============ -->
   <rect x="20" y="210" width="600" height="40" class="box-teal" rx="4" />
   <text x="50" y="232" class="zone-label">AWS Edge</text>
-  <text x="450" y="232" class="sublabel">Route 53, CloudFront</text>
+  <text x="450" y="232" class="sublabel">Route 53 DNS + protected ALB origin</text>
 
   <!-- Arrows from AWS Edge to ALBs -->
   <line x1="130" y1="250" x2="130" y2="280" class="arrow" />
@@ -59,7 +59,7 @@
 
   <!-- PUBLIC SUBNETS -->
   <rect x="40" y="310" width="280" height="110" class="zone-border" rx="3" />
-  <text x="60" y="327" class="sublabel">Public Subnets (us-east-1a, 1b, 1c)</text>
+  <text x="60" y="327" class="sublabel">Public Subnets (ap-southeast-3a, 3b, 3c)</text>
 
   <rect x="60" y="335" width="120" height="35" class="box" rx="3" />
   <text x="120" y="355" text-anchor="middle" class="label">ALB Public</text>
@@ -83,7 +83,7 @@
 
   <!-- PRIVATE APP SUBNETS - EKS -->
   <rect x="40" y="430" width="280" height="150" class="zone-border" rx="3" />
-  <text x="60" y="447" class="sublabel">Private App Subnets (EKS Nodes)</text>
+  <text x="60" y="447" class="sublabel">Private App Subnets · Java BE Services</text>
 
   <!-- Gateway services -->
   <rect x="60" y="455" width="100" height="30" class="box-indigo" rx="3" />
@@ -156,7 +156,7 @@
 
   <!-- DR Region -->
   <rect x="350" y="425" width="250" height="75" class="zone-border" rx="4" />
-  <text x="370" y="442" class="sublabel">DR Region (us-west-2)</text>
+  <text x="370" y="442" class="sublabel">Candidate DR (ap-southeast-1)</text>
 
   <rect x="370" y="450" width="110" height="30" class="box-clay" rx="3" />
   <text x="425" y="467" text-anchor="middle" class="sublabel">RDS Replica</text>
@@ -173,6 +173,16 @@
 
   <rect x="490" y="545" width="80" height="30" class="box-clay" rx="3" />
   <text x="530" y="562" text-anchor="middle" class="sublabel">BPJS</text>
+
+  <!-- Legend -->
+  <rect x="350" y="610" width="250" height="90" class="box" rx="4" />
+  <text x="370" y="630" class="zone-label">Legend / status</text>
+  <line x1="370" y1="648" x2="420" y2="648" class="arrow" />
+  <text x="435" y="652" class="sublabel">runtime path</text>
+  <line x1="370" y1="672" x2="420" y2="672" class="line" stroke-dasharray="5,3" />
+  <text x="435" y="676" class="sublabel">dependency / async</text>
+  <rect x="370" y="683" width="12" height="10" class="box-clay" rx="2" />
+  <text x="395" y="692" class="sublabel">candidate / approval-gated</text>
 
   <!-- Connection lines from services to data layer -->
   <line x1="175" y1="565" x2="175" y2="590" class="line" />

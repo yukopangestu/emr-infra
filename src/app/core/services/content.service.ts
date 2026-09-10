@@ -19,6 +19,7 @@ export interface Section {
   subheading?: string;
   subheadingDescription?: string;
   diagram?: { file: string; caption: string };
+  diagrams?: { file: string; caption: string }[];
   tables?: Table[];
   callouts?: Callout[];
   cards?: { title: string; description: string }[];

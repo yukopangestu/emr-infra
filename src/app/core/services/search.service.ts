@@ -30,6 +30,9 @@ export class SearchService {
           ...(section.numberedList ?? []),
           ...(section.tables ?? []).flatMap((table) => [...table.headers, ...table.rows.flat()]),
           ...(section.callouts ?? []).map((callout) => callout.content),
+          section.subheading,
+          section.subheadingDescription,
+          ...(section.postContent ?? []),
         ].join(' ');
         this.add({ id: section.id, title: section.title, content: structuredContent });
       });
