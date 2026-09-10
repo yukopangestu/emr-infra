@@ -48,3 +48,17 @@
 
 ---
 
+
+## Ruling: Task 1 architecture conflict (2026-09-10)
+
+**Conflict:** Task 1 implementer used Angular CLI 22.1.7, which scaffolds standalone-component/bootstrapApplication architecture. The plan's Tasks 2-14 are written entirely in NgModule idiom (AppModule, SharedModule, ArchitectureModule, declarations/imports/exports). Additionally, angular.json has no prerender config — the old `prerender` key inside `build.options` no longer applies to the `@angular/build:application` builder; modern Angular requires `ng add @angular/ssr` for static route prerendering.
+
+**Ruling:** Adopt standalone-component architecture and Angular 22 as-is (this matches the user's explicit choice during brainstorming: "Approach C — adapt for modern web standards," and NgModules are legacy Angular idiom as of v17+; forcing an older CLI to get NgModules would contradict that choice and ship an outdated toolchain). Two concrete actions:
+
+1. **Fix round on Task 1:** add `@angular/ssr` + configure prerender routes for `/, /s1-/s9` so the build produces real static HTML per route (required for Vercel static hosting — this is the modern equivalent of the plan's old `prerender` config block).
+2. **All subsequent task briefs (Tasks 2-14) are adapted from NgModule code to standalone-component code when dispatched** — components get `standalone: true` + `imports: [...]` per component instead of `standalone: false` + NgModule declarations; routing uses `provideRouter()` in `app.config.ts` + functional route configs instead of `RouterModule.forRoot()`/`forChild()` NgModules; no `AppModule`/`SharedModule`/`ArchitectureModule` files are created. I (controller) will translate each task's plan text to standalone idiom in the dispatch brief rather than quoting the plan's NgModule code verbatim.
+
+**Kept as-is (not worth the churn):** project internal name stays `emr-docs` (angular.json project key, package.json name, vercel.json `dist/emr-docs/browser`) rather than renaming to `emr-infra` — purely cosmetic, already internally consistent, renaming risks breaking working config for no functional gain. Vitest stays as the test runner (Angular 22's official default, integrates with `TestBed` via `@angular/core/testing` — the reviewer's compatibility concern is real to research but not yet confirmed broken; verify empirically in Task 3's test run rather than assuming failure).
+
+**Cost if wrong:** If standalone/Vitest choice turns out unworkable downstream, the fix is rewriting component decorators and route config — mechanical, not a full re-scaffold. If prerender via `@angular/ssr` doesn't fully satisfy "no server-side rendering at runtime," fallback is pure client-side SPA with a single index.html (loses per-route static HTML, acceptable degradation, not a rebuild).
+
