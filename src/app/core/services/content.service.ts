@@ -9,7 +9,6 @@ export interface Table {
 export interface Callout {
   type: 'info' | 'warning' | 'note';
   content: string;
-  postContent?: string[];
 }
 
 export interface Section {

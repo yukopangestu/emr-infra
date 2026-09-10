@@ -99,6 +99,10 @@
           <app-table-component [table]="table" />
         }
 
+        @for (paragraph of section.postContent ?? []; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+
         @for (callout of section.callouts ?? []; track $index) {
           <app-callout [callout]="callout" />
         }
