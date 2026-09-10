@@ -45,7 +45,7 @@ export const architectureData: ArchitectureData = {
           content: 'Konsekuensi yang tidak dapat dibalik dengan murah: kunci partisi wajib menjadi bagian dari setiap primary key dan unique constraint. Primary key berbentuk (tenant_id, id), bukan id tunggal. Seluruh foreign key ikut menjadi komposit.\n\nStruktur ini harus final sebelum implementasi modul klinis pertama dimulai. Mengubahnya setelah ada data produksi berarti merefaktor setiap entity dan setiap kueri.'
         }
       ],
-      subheadingDescription: 'Membatasi partisi pada kelas pertama menjaga jumlahnya terkendali. Pada 50 fasilitas dengan lima tabel bervolume tinggi, jumlah partisi berada di kisaran 250 — jauh di bawah titik di mana perencanaan kueri mulai terdegradasi.'
+      postContent: ['Membatasi partisi pada kelas pertama menjaga jumlahnya terkendali. Pada 50 fasilitas dengan lima tabel bervolume tinggi, jumlah partisi berada di kisaran 250 — jauh di bawah titik di mana perencanaan kueri mulai terdegradasi.']
     },
     {
       id: 's3',
