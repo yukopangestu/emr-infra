@@ -6,10 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:emr-docs": "node dist/emr-docs/server/server.mjs"
+    "test": "ng test"
   },
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "packageManager": "npm@11.12.1",
   "dependencies": {
     "@angular/common": "^22.1.0",

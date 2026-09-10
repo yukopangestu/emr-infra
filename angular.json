@@ -29,7 +29,7 @@
                 "input": "public"
               },
               {
-                "glob": "**/*",
+                "glob": "diagrams/**/*.svg",
                 "input": "src/assets",
                 "output": "assets"
               }

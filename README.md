@@ -44,6 +44,16 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+## Deploy to Vercel
+
+Import this repository into Vercel with the default framework settings. The repository already defines:
+
+- Build command: `npm run build`
+- Output directory: `dist/emr-docs/browser`
+- Node.js runtime: 22.x
+
+The Angular build is configured for static output, and the generated diagrams are copied to `assets/diagrams`.
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:
