@@ -82,3 +82,4 @@ Task 4: complete (commits d2e5953..9ffa3ec, 1 fix round)
 
 **Cost if wrong:** If the extra fields turn out unnecessary or wrongly shaped, fixing them means editing `content.service.ts` plus whichever components consume them — mechanical, low blast radius since nothing consumes them yet.
 
+Task 5: complete (commit f100163)
