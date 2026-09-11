@@ -25,7 +25,7 @@ export const architectureData: ArchitectureData = {
             ['Beban puncak', '± 300 request/detik (jam 08.00–11.00)', 'Autoscaling, load test'],
             ['Encounter', '± 20.000 per hari di seluruh fasilitas', 'Pertumbuhan tabel volume tinggi'],
             ['Pertumbuhan data', 'DB ± 80 GB/bulan, dokumen S3 ± 150 GB/bulan', 'Storage RDS/S3, backup'],
-            ['Target reliability', 'SLO 99,9% workflow klinis; RPO 5 menit, RTO 1 jam (AZ/DB), 2 jam (region)', 'Multi-AZ, replica, DR'],
+            ['Target reliability', 'SLO 99,9% workflow klinis; RPO 5 menit; RTO 5 menit (AZ), 1 jam (DB), 2 jam (region)', 'Multi-AZ, replica, DR'],
             ['Data residency', 'Primary di Indonesia; DR lintas negara hanya jika disetujui Legal', 'Pilihan DR region']
           ]
         }
@@ -152,7 +152,7 @@ export const architectureData: ArchitectureData = {
           content: 'Keputusan yang mahal untuk dibalik: kunci partisi wajib menjadi bagian dari setiap primary key dan unique constraint. Primary key berbentuk (tenant_id, id), dan seluruh foreign key ikut menjadi komposit. Struktur ini harus final sebelum modul klinis pertama diimplementasikan.'
         }
       ],
-      postContent: ['Partisi hanya untuk kelas volume tinggi. Pada 150 fasilitas dengan lima tabel bervolume tinggi, jumlah partisi sekitar 750. Angka ini masih aman untuk perencanaan kueri PostgreSQL modern, tetapi dipantau lewat waktu planning. Tenant yang tumbuh sangat besar dipindah ke silo.']
+      postContent: ['Partisi hanya untuk kelas volume tinggi. Pada 50 fasilitas saat go-live dengan lima tabel bervolume tinggi, jumlah partisi sekitar 250, dan naik menjadi sekitar 750 pada 150 fasilitas. Angka ini masih aman untuk perencanaan kueri PostgreSQL modern, tetapi dipantau lewat waktu planning. Tenant yang tumbuh sangat besar dipindah ke silo.']
     },
     {
       id: 's4',
