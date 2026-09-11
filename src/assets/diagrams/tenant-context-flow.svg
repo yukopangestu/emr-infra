@@ -58,13 +58,13 @@
   <line x1="252" y1="180" x2="408" y2="180" class="arrow" />
 
   <!-- 3: gateway check -->
-  <rect x="345" y="194" width="130" height="44" class="box-clay" rx="3" />
+  <rect x="335" y="194" width="150" height="44" class="box-clay" rx="3" />
   <text x="410" y="212" text-anchor="middle" class="msg">3. verifikasi JWT</text>
   <text x="410" y="228" text-anchor="middle" class="sublabel">klaim tenant = subdomain</text>
 
   <!-- 4 -->
   <text x="490" y="256" text-anchor="middle" class="msg">4. tenant_id terverifikasi</text>
-  <text x="490" y="269" text-anchor="middle" class="sublabel">header internal + mTLS</text>
+  <text x="490" y="269" text-anchor="middle" class="sublabel">header internal</text>
   <line x1="412" y1="276" x2="568" y2="276" class="arrow" />
 
   <!-- 5 -->
@@ -100,7 +100,7 @@
 
   <rect x="410" y="500" width="170" height="48" class="box-clay" rx="4" />
   <text x="495" y="520" text-anchor="middle" class="msg">Consumer</text>
-  <text x="495" y="536" text-anchor="middle" class="sublabel">header = payload? idempotent</text>
+  <text x="495" y="536" text-anchor="middle" class="sublabel">header = payload, idempoten</text>
 
   <rect x="620" y="500" width="150" height="48" class="box" rx="4" />
   <text x="695" y="520" text-anchor="middle" class="msg">BEGIN;</text>

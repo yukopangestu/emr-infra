@@ -31,6 +31,9 @@ describe('App', () => {
     expect(compiled.querySelectorAll('.document-section')).toHaveLength(11);
     expect(compiled.querySelector('#reliability')).toBeTruthy();
     expect(compiled.querySelector('#tenant-flow')).toBeTruthy();
+    expect(Array.from(compiled.querySelectorAll('.document-section')).map((e) => e.id)).toEqual([
+      'scope', 's1', 'tenant-flow', 's2', 's4', 'reliability', 's8', 's7', 's5', 's9', 'decisions',
+    ]);
     expect(text).toContain('Error budget');
     expect(text).toContain('Failure mode');
     expect(text).toContain('expand/contract');

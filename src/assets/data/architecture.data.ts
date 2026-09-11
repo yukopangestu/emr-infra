@@ -32,7 +32,7 @@ export const architectureData: ArchitectureData = {
       ],
       cards: [
         { title: 'Tenant model', description: 'Pooled PostgreSQL: satu database, partisi per tenant untuk tabel volume tinggi, RLS sebagai penegak isolasi. Tenant besar dapat dipindah ke database sendiri (silo).' },
-        { title: 'Edge & akses', description: 'Cloudflare untuk pasien, Cloudflare Zero Trust untuk staf. ALB hanya menerima trafik dari Cloudflare.' },
+        { title: 'Edge & akses', description: 'Semua trafik lewat Cloudflare; staf login IdP + MFA di Gateway Admin, Cloudflare Zero Trust khusus operator platform. ALB hanya menerima trafik dari Cloudflare.' },
         { title: 'Reliability', description: 'SLO per kelas workflow, alert berbasis burn rate, failure mode yang terdokumentasi, dan drill restore terjadwal.' },
         { title: 'Delivery', description: 'Terraform + GitOps, canary per cohort tenant, auto-rollback berbasis SLO, migrasi expand/contract.' }
       ]
@@ -41,7 +41,7 @@ export const architectureData: ArchitectureData = {
       id: 's1',
       number: 2,
       title: 'Master architecture diagram',
-      content: 'Trafik pasien masuk lewat Cloudflare menuju ALB Public dan Gateway Public, dan hanya dapat mencapai layanan yang dibutuhkan pasien. Trafik staf masuk lewat Cloudflare Zero Trust (IdP + MFA) menuju ALB Admin dan Gateway Admin. Route 53 memegang DNS dan health check; ALB origin dikunci sehingga akses langsung di luar Cloudflare ditolak.\n\nPgBouncer berjalan sebagai dua replika workload EKS di private app subnet. Security group RDS hanya menerima koneksi dari PgBouncer. Zona data tidak memiliki rute ke internet; egress ke SATUSEHAT dan BPJS lewat NAT per AZ.',
+      content: 'Trafik pasien masuk lewat Cloudflare menuju ALB Public dan Gateway Public, dan hanya dapat mencapai layanan yang dibutuhkan pasien. Trafik staf masuk lewat Cloudflare menuju ALB Admin dan Gateway Admin dengan login IdP + MFA. Akses operator platform (runbook, break-glass) terpisah lewat Cloudflare Zero Trust. Route 53 hanya memegang zona origin dan health check; ALB origin dikunci sehingga akses langsung di luar Cloudflare ditolak.\n\nPgBouncer berjalan sebagai dua replika workload EKS di private app subnet. Security group RDS hanya menerima koneksi dari PgBouncer. Zona data tidak memiliki rute ke internet; egress ke SATUSEHAT dan BPJS lewat NAT per AZ.',
       diagram: {
         file: 'master-diagram.svg',
         caption: 'Gateway Public dan Gateway Admin dipisahkan agar permukaan yang terpapar internet sekecil mungkin. Reporting membaca dari read replica sehingga kueri berat tidak mengganggu workflow klinis di primary.'
@@ -80,10 +80,10 @@ export const architectureData: ArchitectureData = {
       id: 'tenant-flow',
       number: 3,
       title: 'Alur tenant context & lifecycle',
-      content: 'Isolasi hanya sekuat titik terlemah di jalur tenant context. Diagram berikut menunjukkan dari mana tenant ditentukan, di mana diverifikasi, dan bagaimana sampai ke database. Aturan intinya: tenant tidak pernah diambil dari input yang bisa dikontrol pengguna, dan konteks database selalu bercakupan transaksi.',
+      content: 'Isolasi hanya sekuat titik terlemah di jalur tenant context. Diagram berikut menunjukkan dari mana tenant ditentukan, di mana diverifikasi, dan bagaimana sampai ke database. Aturan intinya: tenant dari input pengguna (subdomain, pilihan fasilitas) tidak pernah dipercaya sebelum dicocokkan dengan klaim JWT atau link pasien–fasilitas, dan konteks database selalu bercakupan transaksi.',
       diagram: {
         file: 'tenant-context-flow.svg',
-        caption: 'Jalur sinkron diverifikasi di gateway. Jalur async tidak melewati gateway, sehingga consumer wajib memvalidasi dan menulis konteks sendiri. Event ditulis ke tabel outbox dalam transaksi yang sama agar tidak hilang ketika broker sedang tidak tersedia.'
+        caption: 'Contoh jalur staf. Jalur sinkron diverifikasi di gateway. Jalur async tidak melewati gateway, sehingga consumer wajib memvalidasi dan menulis konteks sendiri. Event ditulis ke tabel outbox dalam transaksi yang sama agar tidak hilang ketika broker sedang tidak tersedia.'
       },
       tables: [
         {
@@ -102,8 +102,8 @@ export const architectureData: ArchitectureData = {
             ['Onboard', 'Tenant service membuat baris tenant, partisi, hostname Cloudflare, dan konfigurasi awal', 'Smoke test isolasi untuk tenant baru lulus'],
             ['Suspend', 'Gateway menolak semua request tenant; data tetap tersimpan', 'Request ditolak, audit event tercatat'],
             ['Export', 'Ekspor partisi tenant ke S3 terenkripsi', 'Checksum dan jumlah baris cocok'],
-            ['Pindah ke silo', 'Detach partisi → RDS terpisah, verifikasi paralel, pindahkan routing di gateway', 'Rekonsiliasi data, SLO stabil 7 hari'],
-            ['Terminate', 'Setelah masa retensi, partisi di-drop; jejak audit tetap disimpan', 'Laporan terminasi ditandatangani']
+            ['Pindah ke silo', 'Replikasi data tenant ke RDS terpisah (logical replication), verifikasi paralel, pindahkan routing di gateway, lalu detach dan drop partisi lama', 'Rekonsiliasi data, SLO stabil 7 hari'],
+            ['Terminate', 'Setelah masa retensi, partisi klinis di-drop; partisi jejak audit diarsipkan ke S3 Object Lock sesuai masa retensi', 'Laporan terminasi ditandatangani']
           ]
         }
       ],
@@ -152,7 +152,7 @@ export const architectureData: ArchitectureData = {
           content: 'Keputusan yang mahal untuk dibalik: kunci partisi wajib menjadi bagian dari setiap primary key dan unique constraint. Primary key berbentuk (tenant_id, id), dan seluruh foreign key ikut menjadi komposit. Struktur ini harus final sebelum modul klinis pertama diimplementasikan.'
         }
       ],
-      postContent: ['Partisi hanya untuk kelas volume tinggi. Pada 50 fasilitas saat go-live dengan lima tabel bervolume tinggi, jumlah partisi sekitar 250, dan naik menjadi sekitar 750 pada 150 fasilitas. Angka ini masih aman untuk perencanaan kueri PostgreSQL modern, tetapi dipantau lewat waktu planning. Tenant yang tumbuh sangat besar dipindah ke silo.']
+      postContent: ['Partisi hanya untuk kelas volume tinggi. Pada 50 fasilitas saat go-live dengan lima tabel bervolume tinggi, jumlah partisi sekitar 250, dan naik menjadi sekitar 750 pada 150 fasilitas. Angka ini masih aman untuk perencanaan kueri PostgreSQL modern, tetapi dipantau lewat waktu planning. Tenant yang tumbuh sangat besar dipindah ke silo.', 'Detail implementasi yang sering terlewat: driver JDBC beralih ke server-side prepared statement setelah prepareThreshold, dan ini rusak di transaction pooling kecuali PgBouncer ≥ 1.21 dengan max_prepared_statements aktif (atau prepareThreshold=0). Konteks tenant ditulis lewat set_config dengan parameter terikat (argumen ketiga true = cakupan transaksi, setara SET LOCAL), bukan dengan menyusun string SQL.']
     },
     {
       id: 's4',
@@ -161,10 +161,10 @@ export const architectureData: ArchitectureData = {
       content: 'Tanpa bastion, tanpa VM runner, tanpa VM batch. Semuanya digantikan layanan terkelola, sehingga tidak ada host tambahan yang harus di-patch.\n\nSetiap workload wajib memiliki resource request dan limit, Pod Disruption Budget, topology spread lintas AZ, dan NetworkPolicy default-deny. Startup probe menunggu inisialisasi JVM. Liveness hanya memeriksa proses. Readiness tidak bergantung sinkron pada database bersama, supaya gangguan database tidak membuat semua pod keluar dari load balancer sekaligus; kesehatan database dipantau lewat metrics dan circuit breaker.',
       cards: [
         { title: 'EKS', description: '3 × m6i.xlarge (satu per AZ), Cluster Autoscaler sampai 6 node. HPA pada CPU dan latency p95. Sizing divalidasi lewat load test 2× beban puncak.' },
-        { title: 'PgBouncer', description: 'Dua replika, transaction pooling, anti-affinity lintas AZ, PDB minAvailable 1. Jika pool tidak tersedia, request gagal closed; tidak ada fallback langsung ke RDS.' },
+        { title: 'PgBouncer', description: 'Dua replika, transaction pooling, anti-affinity lintas AZ, PDB minAvailable 1. Security group RDS (primary dan read replica) hanya menerima koneksi dari PgBouncer; Reporting memakai pool terpisah ke read replica. Jika pool tidak tersedia, request gagal closed; tidak ada fallback langsung ke RDS.' },
         { title: 'SSM Session Manager', description: 'Pengganti bastion. Shell ke node tanpa SSH publik, seluruh sesi terekam.' },
-        { title: 'Cloudflare Zero Trust', description: 'Pengganti VPN. Akses staf ke ALB Admin lewat IdP + MFA.' },
-        { title: 'EventBridge + Kubernetes Job', description: 'Pengganti VM batch. Job terjadwal berjalan di cluster dengan batas konkurensi per tenant.' },
+        { title: 'Cloudflare Zero Trust', description: 'Pengganti VPN untuk operator platform (≤ 50 orang, masih dalam paket gratis). Staf klinis tidak butuh VPN: login IdP + MFA di Gateway Admin.' },
+        { title: 'Kubernetes CronJob', description: 'Pengganti VM batch. CronJob berjalan di cluster dengan batas konkurensi per tenant.' },
         { title: 'Runner CI SaaS', description: 'Build di luar VPC, image ditandatangani dan didorong ke ECR. Tidak ada runner EC2 yang perlu dirawat.' }
       ]
     },
@@ -190,8 +190,8 @@ export const architectureData: ArchitectureData = {
           rows: [
             ['RDS primary gagal (satu AZ)', 'Write gagal ± 60–120 detik', 'RDS event, lonjakan error rate', 'Multi-AZ failover; PgBouncer reconnect; retry idempoten di client', 'Verifikasi replica lag, catat dampak ke SLO'],
             ['Satu replika PgBouncer mati', 'Tidak ada (replika lain melayani)', 'Pod restart, pool metrics', 'EKS reschedule, PDB', '—'],
-            ['Kedua PgBouncer mati', 'Semua request DB gagal closed', 'Readiness gagal, alert SLO', 'Reschedule pod', 'Scale up / rollback konfigurasi; tidak ada bypass ke RDS'],
-            ['Tenant membebani DB (noisy neighbor)', 'Latency naik untuk semua tenant', 'Latency dan waktu tunggu pool per tenant', 'Bulkhead per tenant, statement_timeout', 'Throttle tenant di Cloudflare/gateway, cek kueri lambat'],
+            ['Kedua PgBouncer mati', 'Semua request DB gagal closed', 'Endpoint PgBouncer kosong, error koneksi, alert SLO', 'Reschedule pod', 'Scale up / rollback konfigurasi; tidak ada bypass ke RDS'],
+            ['Tenant membebani DB (noisy neighbor)', 'Latency naik untuk semua tenant', 'Latency dan waktu tunggu pool per tenant', 'Bulkhead per tenant, statement_timeout', 'Throttle tenant di gateway, cek kueri lambat'],
             ['Amazon MQ tidak tersedia', 'Integrasi dan billing tertunda; workflow klinis tetap jalan', 'Publish error, umur outbox', 'Outbox menahan event, relay retry', 'Replay dari outbox setelah broker pulih'],
             ['Redis gagal', 'Staf login ulang; latency naik karena cache miss', 'Error rate Redis', 'ElastiCache failover, circuit breaker lewati cache', 'Pantau beban DB'],
             ['Satu AZ hilang', 'Kapasitas turun ± 1/3 sementara', 'Node NotReady, health check ALB', 'Pod pindah AZ, autoscaler menambah node, NAT per AZ', 'Verifikasi kapasitas cukup'],
@@ -210,7 +210,7 @@ export const architectureData: ArchitectureData = {
       subheading: 'Failure mode analysis',
       subheadingDescription: 'Setiap komponen punya jawaban untuk pertanyaan "apa yang terjadi kalau ini mati?". Baris tanpa mitigasi otomatis wajib punya runbook yang sudah dilatih.',
       postContent: [
-        'Kontrol noisy neighbor berlapis: rate limit per tenant di Cloudflare (600 request/menit untuk API pasien), token bucket per tenant di gateway (50 RPS stabil, burst 100), bulkhead maksimal 10 operasi DB bersamaan per tenant per pod, statement_timeout 5 detik untuk role OLTP dan 60 detik untuk reporting di replica, serta idle_in_transaction_session_timeout 30 detik.',
+        'Kontrol noisy neighbor berlapis: rate limit per IP di Cloudflare (600 request/menit untuk API pasien), token bucket per tenant di gateway (50 RPS stabil, burst 100), bulkhead maksimal 10 operasi DB bersamaan per tenant per pod, statement_timeout 5 detik untuk role OLTP dan 60 detik untuk reporting di replica, serta idle_in_transaction_session_timeout 30 detik.',
         'On-call: SEV1 (dugaan kebocoran lintas tenant, atau workflow klinis down lebih dari 5 menit) dipage langsung, acknowledge ≤ 5 menit, ada incident commander dan status update ke fasilitas tiap 30 menit. SEV2 (degradasi atau satu integrasi down) ditangani ≤ 30 menit. SEV3 lewat ticket. Setiap SEV1/SEV2 menghasilkan postmortem tanpa menyalahkan individu dalam 5 hari kerja.'
       ],
       callouts: [
@@ -266,7 +266,7 @@ export const architectureData: ArchitectureData = {
             ['RDS PostgreSQL', 'Multi-AZ + PITR + cross-region replica', 'ap-southeast-1', '≤ 5 menit', '≤ 1 jam'],
             ['S3 dokumen medis', 'Versioning + replikasi lintas region + Object Lock', 'ap-southeast-1', '≤ 15 menit', '≤ 1 jam'],
             ['ElastiCache Redis', 'Tidak di-backup, dibangun ulang', '—', 'Sesi hilang', '≤ 15 menit'],
-            ['Amazon MQ', 'Cluster + IaC; event aman di outbox', 'Re-apply IaC', '0 (outbox)', '≤ 2 jam'],
+            ['Amazon MQ', 'Cluster + IaC; event aman di outbox', 'Re-apply IaC', '= RPO RDS (outbox)', '≤ 2 jam'],
             ['Kegagalan satu AZ', 'Failover otomatis RDS, rescheduling pod', '—', '≈ 0', '≤ 5 menit'],
             ['Kegagalan region', 'Promosi replica + deploy EKS via IaC', 'ap-southeast-1', '≤ 5 menit', '≤ 2 jam']
           ]
@@ -307,7 +307,7 @@ export const architectureData: ArchitectureData = {
         {
           headers: ['Lapis', 'Komponen', 'Fungsi', 'Sifat'],
           rows: [
-            ['L1', 'Cloudflare Pro + Zero Trust', 'DDoS proxy, WAF, rate limit per tenant, header internal dibersihkan', 'Preventif'],
+            ['L1', 'Cloudflare Pro + Zero Trust', 'DDoS proxy, WAF, rate limit per IP, header internal dibersihkan', 'Preventif'],
             ['L2', 'WAF Regional pada ALB', 'Rate-based rule dan custom rule; origin hanya menerima Cloudflare', 'Preventif'],
             ['L3', 'Security group, private subnet', 'App dan data tanpa IP publik; zona data tanpa rute internet', 'Preventif'],
             ['L4', 'Gateway dan konteks aplikasi', 'JWT divalidasi, klaim tenant dicocokkan dengan subdomain, konteks SET LOCAL', 'Preventif'],
@@ -322,7 +322,7 @@ export const architectureData: ArchitectureData = {
             ['kms-field-pii', 'Enkripsi kolom NIK dan nomor rekam medis', 'Manual dengan tumpang tindih dua kunci'],
             ['kms-secrets', 'Secrets Manager', 'Kunci tahunan, kredensial database 90 hari'],
             ['kms-ebs', 'Volume node EKS', 'Otomatis tahunan'],
-            ['kms-backup-vault', 'AWS Backup Vault dengan Vault Lock', 'Otomatis tahunan, penghapusan kunci ditolak']
+            ['kms-backup-vault', 'AWS Backup Vault dengan Vault Lock', 'Otomatis tahunan; kms:ScheduleKeyDeletion ditolak di key policy']
           ]
         }
       ],
@@ -391,7 +391,7 @@ export const architectureData: ArchitectureData = {
           rows: [
             ['ADR-01', 'EKS sebagai compute', 'Ekosistem Kubernetes untuk GitOps, canary, NetworkPolicy, dan HPA', 'ECS: lebih murah, tetapi tooling rollout dan isolasi jaringan lebih terbatas'],
             ['ADR-02', 'Pooled PostgreSQL + partisi + RLS', 'Hemat biaya, migrasi satu kali, isolasi ditegakkan database', 'Database per tenant: 50+ instans, migrasi dan biaya berlipat'],
-            ['ADR-03', 'SET LOCAL + PgBouncer transaction pooling', 'Konteks tidak bocor antar transaksi; koneksi RDS tetap efisien', 'Session pooling: koneksi RDS habis pada 800 sesi bersamaan'],
+            ['ADR-03', 'SET LOCAL + PgBouncer transaction pooling', 'Konteks tidak bocor antar transaksi; koneksi RDS tetap efisien', 'Session pooling: setiap koneksi pool aplikasi memegang satu koneksi RDS, sehingga max_connections habis saat HPA menambah pod'],
             ['ADR-04', 'Cloudflare edge + ALB terkunci', 'Zero Trust untuk staf tanpa VPN; permukaan publik minimal', 'CloudFront + VPN: dua sistem akses terpisah untuk dikelola'],
             ['ADR-05', 'Amazon MQ + transactional outbox', 'Broker managed; event tidak hilang ketika broker down', 'RabbitMQ di EKS: hemat, tetapi beban operasi ke tim'],
             ['ADR-06', 'SLO per kelas workflow + burn-rate alert', 'Prioritas berdasarkan dampak klinis, alert lebih sedikit dan lebih akurat', 'Satu target uptime global: menyamakan IGD dengan laporan bulanan'],
