@@ -1,0 +1,194 @@
+<svg viewBox="0 0 980 580" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .arrow-fail { stroke: #9E4A34; stroke-width: 1.5; stroke-dasharray: 5,3; fill: none; marker-end: url(#arrowhead-fail); }
+      .status-ok { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .status-fail { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .status-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #16211E; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+    <marker id="arrowhead-fail" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9E4A34" />
+    </marker>
+  </defs>
+
+  <!-- PANEL A: Routing Flows -->
+  <text x="20" y="28" class="title">Tenant Routing &amp; Lifecycle</text>
+
+  <!-- Panel A Title -->
+  <text x="20" y="60" class="zone-label">Jalur tenant context</text>
+
+  <!-- Row 1: Staf -->
+  <rect x="20" y="72" width="140" height="42" class="box" rx="4" />
+  <text x="90" y="88" text-anchor="middle" class="label">Staf</text>
+  <text x="90" y="102" text-anchor="middle" class="sublabel">(dashboard)</text>
+
+  <rect x="170" y="72" width="130" height="42" class="box" rx="4" />
+  <text x="235" y="88" text-anchor="middle" class="sublabel">Subdomain +</text>
+  <text x="235" y="102" text-anchor="middle" class="sublabel">klaim JWT</text>
+
+  <rect x="310" y="72" width="130" height="42" class="box" rx="4" />
+  <text x="375" y="88" text-anchor="middle" class="sublabel">Klaim =</text>
+  <text x="375" y="102" text-anchor="middle" class="sublabel">subdomain?</text>
+
+  <line x1="440" y1="93" x2="480" y2="93" class="arrow" />
+  <rect x="480" y="81" width="50" height="24" class="status-ok" rx="3" />
+  <text x="505" y="95" text-anchor="middle" class="status-text">OK</text>
+
+  <line x1="310" y1="72" x2="250" y2="35" class="arrow-fail" />
+  <rect x="190" y="18" width="120" height="28" class="status-fail" rx="3" />
+  <text x="250" y="35" text-anchor="middle" class="status-text">403 + audit</text>
+
+  <!-- Row 2: Pasien -->
+  <rect x="20" y="127" width="140" height="42" class="box" rx="4" />
+  <text x="90" y="143" text-anchor="middle" class="label">Pasien</text>
+  <text x="90" y="157" text-anchor="middle" class="sublabel">(mobile app)</text>
+
+  <rect x="170" y="127" width="130" height="42" class="box" rx="4" />
+  <text x="235" y="141" text-anchor="middle" class="sublabel">Fasilitas</text>
+  <text x="235" y="157" text-anchor="middle" class="sublabel">dipilih di app</text>
+
+  <rect x="310" y="127" width="130" height="42" class="box" rx="4" />
+  <text x="375" y="141" text-anchor="middle" class="sublabel">Link pasien–</text>
+  <text x="375" y="157" text-anchor="middle" class="sublabel">fasilitas?</text>
+
+  <line x1="440" y1="148" x2="480" y2="148" class="arrow" />
+  <rect x="480" y="136" width="50" height="24" class="status-ok" rx="3" />
+  <text x="505" y="150" text-anchor="middle" class="status-text">OK</text>
+
+  <line x1="310" y1="127" x2="250" y2="90" class="arrow-fail" />
+  <rect x="190" y="73" width="120" height="28" class="status-fail" rx="3" />
+  <text x="250" y="90" text-anchor="middle" class="status-text">403 + audit</text>
+
+  <!-- Row 3: Consumer -->
+  <rect x="20" y="182" width="140" height="42" class="box" rx="4" />
+  <text x="90" y="195" text-anchor="middle" class="label">Consumer</text>
+  <text x="90" y="212" text-anchor="middle" class="sublabel">antrean</text>
+
+  <rect x="170" y="182" width="130" height="42" class="box" rx="4" />
+  <text x="235" y="196" text-anchor="middle" class="sublabel">Header</text>
+  <text x="235" y="212" text-anchor="middle" class="sublabel">tenant_id</text>
+
+  <rect x="310" y="182" width="130" height="42" class="box" rx="4" />
+  <text x="375" y="196" text-anchor="middle" class="sublabel">Header =</text>
+  <text x="375" y="212" text-anchor="middle" class="sublabel">payload?</text>
+
+  <line x1="440" y1="203" x2="480" y2="203" class="arrow" />
+  <rect x="480" y="191" width="50" height="24" class="status-ok" rx="3" />
+  <text x="505" y="205" text-anchor="middle" class="status-text">OK</text>
+
+  <line x1="310" y1="182" x2="250" y2="145" class="arrow-fail" />
+  <rect x="190" y="128" width="120" height="28" class="status-fail" rx="3" />
+  <text x="250" y="145" text-anchor="middle" class="status-text">DLQ + alert</text>
+
+  <!-- Row 4: Job terjadwal -->
+  <rect x="20" y="237" width="140" height="42" class="box" rx="4" />
+  <text x="90" y="250" text-anchor="middle" class="label">Job</text>
+  <text x="90" y="267" text-anchor="middle" class="sublabel">terjadwal</text>
+
+  <rect x="170" y="237" width="130" height="42" class="box" rx="4" />
+  <text x="235" y="251" text-anchor="middle" class="sublabel">Daftar tenant</text>
+  <text x="235" y="267" text-anchor="middle" class="sublabel">aktif</text>
+
+  <rect x="310" y="237" width="130" height="42" class="box" rx="4" />
+  <text x="375" y="251" text-anchor="middle" class="sublabel">1 transaksi</text>
+  <text x="375" y="267" text-anchor="middle" class="sublabel">/ tenant</text>
+
+  <line x1="440" y1="258" x2="480" y2="258" class="arrow" />
+  <rect x="480" y="246" width="50" height="24" class="status-ok" rx="3" />
+  <text x="505" y="260" text-anchor="middle" class="status-text">OK</text>
+
+  <line x1="310" y1="237" x2="250" y2="200" class="arrow-fail" />
+  <rect x="175" y="183" width="145" height="28" class="status-fail" rx="3" />
+  <text x="247" y="200" text-anchor="middle" class="status-text">Job gagal</text>
+
+  <!-- Row 5: Operator -->
+  <rect x="20" y="292" width="140" height="42" class="box" rx="4" />
+  <text x="90" y="308" text-anchor="middle" class="label">Operator</text>
+  <text x="90" y="322" text-anchor="middle" class="sublabel">platform</text>
+
+  <rect x="170" y="292" width="130" height="42" class="box" rx="4" />
+  <text x="235" y="306" text-anchor="middle" class="sublabel">Tidak ada</text>
+  <text x="235" y="322" text-anchor="middle" class="sublabel">konteks</text>
+
+  <rect x="310" y="292" width="130" height="42" class="box" rx="4" />
+  <text x="375" y="306" text-anchor="middle" class="sublabel">Tanpa konteks</text>
+  <text x="375" y="322" text-anchor="middle" class="sublabel">= nol baris</text>
+
+  <line x1="440" y1="313" x2="480" y2="313" class="arrow" />
+  <rect x="480" y="301" width="50" height="24" class="status-ok" rx="3" />
+  <text x="505" y="315" text-anchor="middle" class="status-text">OK</text>
+
+  <line x1="310" y1="292" x2="250" y2="255" class="arrow-fail" />
+  <rect x="160" y="238" width="170" height="28" class="status-fail" rx="3" />
+  <text x="245" y="255" text-anchor="middle" class="status-text">Ditolak, break-glass</text>
+
+  <!-- PANEL B: Lifecycle -->
+  <line x="20" y="360" x2="950" y2="360" stroke="#D9E0DD" stroke-width="1" />
+
+  <text x="20" y="385" class="zone-label">Lifecycle tenant</text>
+
+  <!-- Stage 1: Onboard -->
+  <rect x="40" y="410" width="160" height="70" class="box-teal" rx="4" />
+  <text x="120" y="432" text-anchor="middle" class="label">Onboard</text>
+  <text x="120" y="450" text-anchor="middle" class="sublabel">Tenant service:</text>
+  <text x="120" y="463" text-anchor="middle" class="sublabel">baris + partisi +</text>
+  <text x="120" y="476" text-anchor="middle" class="sublabel">hostname</text>
+
+  <!-- Arrow 1 -->
+  <line x1="200" y1="445" x2="240" y2="445" class="arrow" />
+
+  <!-- Stage 2: Suspend -->
+  <rect x="240" y="410" width="160" height="70" class="box-indigo" rx="4" />
+  <text x="320" y="432" text-anchor="middle" class="label">Suspend</text>
+  <text x="320" y="450" text-anchor="middle" class="sublabel">Gateway tolak</text>
+  <text x="320" y="463" text-anchor="middle" class="sublabel">semua request;</text>
+  <text x="320" y="476" text-anchor="middle" class="sublabel">data tetap ada</text>
+
+  <!-- Arrow 2 -->
+  <line x1="400" y1="445" x2="440" y2="445" class="arrow" />
+
+  <!-- Stage 3: Export -->
+  <rect x="440" y="410" width="160" height="70" class="box" rx="4" />
+  <text x="520" y="432" text-anchor="middle" class="label">Export</text>
+  <text x="520" y="450" text-anchor="middle" class="sublabel">Ekspor partisi ke</text>
+  <text x="520" y="463" text-anchor="middle" class="sublabel">S3 terenkripsi</text>
+  <text x="520" y="476" text-anchor="middle" class="sublabel"></text>
+
+  <!-- Arrow 3 -->
+  <line x1="600" y1="445" x2="640" y2="445" class="arrow" />
+
+  <!-- Stage 4: Pindah ke silo (wrapped to next row) -->
+  <rect x="40" y="500" width="160" height="70" class="box-clay" rx="4" />
+  <text x="120" y="517" text-anchor="middle" class="label">Pindah ke</text>
+  <text x="120" y="531" text-anchor="middle" class="label">silo</text>
+  <text x="120" y="549" text-anchor="middle" class="sublabel">Logical replication +</text>
+  <text x="120" y="562" text-anchor="middle" class="sublabel">verifikasi + cutover</text>
+
+  <!-- Arrow 4 (angled down from stage 3) -->
+  <line x1="640" y1="480" x2="640" y2="490" class="arrow" />
+  <line x1="640" y1="490" x2="200" y2="490" class="arrow" />
+  <line x1="200" y1="490" x2="200" y2="500" class="arrow" />
+
+  <!-- Stage 5: Terminate -->
+  <rect x="240" y="500" width="160" height="70" class="box-clay" rx="4" />
+  <text x="320" y="522" text-anchor="middle" class="label">Terminate</text>
+  <text x="320" y="540" text-anchor="middle" class="sublabel">Drop partisi klinis;</text>
+  <text x="320" y="553" text-anchor="middle" class="sublabel">arsip audit ke S3</text>
+  <text x="320" y="566" text-anchor="middle" class="sublabel">Object Lock</text>
+
+  <!-- Arrow 5 -->
+  <line x1="200" y1="535" x2="240" y2="535" class="arrow" />
+
+</svg>

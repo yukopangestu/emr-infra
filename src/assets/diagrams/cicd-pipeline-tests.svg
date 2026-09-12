@@ -1,0 +1,167 @@
+<svg viewBox="0 0 980 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .gate-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; font-weight: 600; fill: #D97706; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 2; }
+      .checklist-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #16211E; }
+      .arrow { stroke: #0F6E56; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .checkmark { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; font-weight: 600; fill: #FFFFFF; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="490" y="30" text-anchor="middle" class="title">CI/CD Pipeline &amp; Isolation Tests</text>
+
+  <!-- ============ PANEL A: PIPELINE ============ -->
+
+  <!-- Row 1 -->
+  <!-- Step 1: Commit -->
+  <rect x="40" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="95" y="95" text-anchor="middle" class="label">Commit</text>
+  <text x="95" y="112" text-anchor="middle" class="sublabel">Merge request</text>
+
+  <!-- Arrow 1->2 -->
+  <path d="M 150 105 L 175 105" class="arrow" />
+
+  <!-- Step 2: Build -->
+  <rect x="175" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="230" y="95" text-anchor="middle" class="label">Build</text>
+  <text x="230" y="112" text-anchor="middle" class="sublabel">Unit test</text>
+
+  <!-- Arrow 2->3 -->
+  <path d="M 285 105 L 310 105" class="arrow" />
+
+  <!-- Step 3: Scan -->
+  <rect x="310" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="365" y="95" text-anchor="middle" class="label">Scan</text>
+  <text x="365" y="112" text-anchor="middle" class="sublabel">SAST, dependency,</text>
+  <text x="365" y="124" text-anchor="middle" class="sublabel">image</text>
+
+  <!-- Arrow 3->4 -->
+  <path d="M 420 105 L 445 105" class="arrow" />
+
+  <!-- Step 4: Uji isolasi (GATE) -->
+  <rect x="445" y="70" width="110" height="70" class="box-clay" rx="4" />
+  <text x="500" y="95" text-anchor="middle" class="label">Uji isolasi</text>
+  <text x="500" y="112" text-anchor="middle" class="gate-label">⛔ Gerbang</text>
+  <text x="500" y="124" text-anchor="middle" class="gate-label">pemblokir</text>
+
+  <!-- Arrow 4->5 -->
+  <path d="M 555 105 L 580 105" class="arrow" />
+
+  <!-- Step 5: Push ECR -->
+  <rect x="580" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="635" y="95" text-anchor="middle" class="label">Push ECR</text>
+  <text x="635" y="112" text-anchor="middle" class="sublabel">Image</text>
+  <text x="635" y="124" text-anchor="middle" class="sublabel">ditandatangani</text>
+
+  <!-- Arrow 5->6 -->
+  <path d="M 690 105 L 715 105" class="arrow" />
+
+  <!-- Step 6: Migrasi expand -->
+  <rect x="715" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="770" y="95" text-anchor="middle" class="label">Migrasi</text>
+  <text x="770" y="112" text-anchor="middle" class="sublabel">expand</text>
+  <text x="770" y="124" text-anchor="middle" class="sublabel">Role terpisah</text>
+
+  <!-- Arrow 6->7 -->
+  <path d="M 825 105 L 850 105" class="arrow" />
+
+  <!-- Step 7: Canary -->
+  <rect x="850" y="70" width="110" height="70" class="box" rx="4" />
+  <text x="905" y="95" text-anchor="middle" class="label">Canary</text>
+  <text x="905" y="112" text-anchor="middle" class="sublabel">Cohort 0 → 1</text>
+  <text x="905" y="124" text-anchor="middle" class="sublabel">→ semua</text>
+
+  <!-- Row 2 -->
+  <!-- Arrow from Step 4 down -->
+  <path d="M 500 140 L 500 165" class="arrow" />
+
+  <!-- Step 8: Analisis SLO (GATE) -->
+  <rect x="445" y="165" width="110" height="70" class="box-clay" rx="4" />
+  <text x="500" y="190" text-anchor="middle" class="label">Analisis SLO</text>
+  <text x="500" y="207" text-anchor="middle" class="gate-label">⛔ Auto-</text>
+  <text x="500" y="219" text-anchor="middle" class="gate-label">rollback</text>
+
+  <!-- Down arrow from gate to Panel B -->
+  <path d="M 500 235 L 500 275" class="arrow" stroke-width="2" />
+
+  <!-- ============ PANEL B: ISOLATION TESTS CHECKLIST ============ -->
+
+  <!-- Background panel for checklist -->
+  <rect x="40" y="280" width="900" height="400" fill="#FAFAF8" stroke="#D9E0DD" stroke-width="1" rx="4" />
+
+  <!-- Checklist title -->
+  <text x="490" y="305" text-anchor="middle" class="zone-label">Uji Isolasi Gate — 10 Isolation Tests</text>
+
+  <!-- Column 1 (left) -->
+  <!-- Test 1 -->
+  <circle cx="70" cy="340" r="10" fill="#8FC4B2" />
+  <text x="70" y="345" text-anchor="middle" class="checkmark">✓</text>
+  <text x="90" y="334" class="checklist-label">Kueri fasilitas A tidak mengembalikan</text>
+  <text x="90" y="346" class="checklist-label">baris fasilitas B</text>
+
+  <!-- Test 2 -->
+  <circle cx="70" cy="390" r="10" fill="#8FC4B2" />
+  <text x="70" y="395" text-anchor="middle" class="checkmark">✓</text>
+  <text x="90" y="384" class="checklist-label">Kueri tanpa konteks mengembalikan</text>
+  <text x="90" y="396" class="checklist-label">nol baris</text>
+
+  <!-- Test 3 -->
+  <circle cx="70" cy="440" r="10" fill="#8FC4B2" />
+  <text x="70" y="445" text-anchor="middle" class="checkmark">✓</text>
+  <text x="90" y="434" class="checklist-label">Penulisan dengan penanda fasilitas</text>
+  <text x="90" y="446" class="checklist-label">lain ditolak</text>
+
+  <!-- Test 4 -->
+  <circle cx="70" cy="490" r="10" fill="#8FC4B2" />
+  <text x="70" y="495" text-anchor="middle" class="checkmark">✓</text>
+  <text x="90" y="484" class="checklist-label">Permintaan paralel antar fasilitas</text>
+  <text x="90" y="496" class="checklist-label">tidak saling mencemari konteks</text>
+
+  <!-- Test 5 -->
+  <circle cx="70" cy="540" r="10" fill="#8FC4B2" />
+  <text x="70" y="545" text-anchor="middle" class="checkmark">✓</text>
+  <text x="90" y="534" class="checklist-label">Konteks bersih setelah request</text>
+  <text x="90" y="546" class="checklist-label">selesai (termasuk saat exception)</text>
+
+  <!-- Column 2 (right) -->
+  <!-- Test 6 -->
+  <circle cx="530" cy="340" r="10" fill="#8FC4B2" />
+  <text x="530" y="345" text-anchor="middle" class="checkmark">✓</text>
+  <text x="550" y="334" class="checklist-label">Konteks tidak bertahan di koneksi</text>
+  <text x="550" y="346" class="checklist-label">setelah transaksi berakhir</text>
+
+  <!-- Test 7 -->
+  <circle cx="530" cy="390" r="10" fill="#8FC4B2" />
+  <text x="530" y="395" text-anchor="middle" class="checkmark">✓</text>
+  <text x="550" y="384" class="checklist-label">Role aplikasi tidak dapat melewati</text>
+  <text x="550" y="396" class="checklist-label">RLS</text>
+
+  <!-- Test 8 -->
+  <circle cx="530" cy="440" r="10" fill="#8FC4B2" />
+  <text x="530" y="445" text-anchor="middle" class="checkmark">✓</text>
+  <text x="550" y="434" class="checklist-label">Consumer antrean menolak header</text>
+  <text x="550" y="446" class="checklist-label">≠ payload</text>
+
+  <!-- Test 9 -->
+  <circle cx="530" cy="490" r="10" fill="#8FC4B2" />
+  <text x="530" y="495" text-anchor="middle" class="checkmark">✓</text>
+  <text x="550" y="484" class="checklist-label">Seluruh kunci cache berprefiks</text>
+  <text x="550" y="496" class="checklist-label">fasilitas</text>
+
+  <!-- Test 10 -->
+  <circle cx="530" cy="540" r="10" fill="#8FC4B2" />
+  <text x="530" y="545" text-anchor="middle" class="checkmark">✓</text>
+  <text x="550" y="534" class="checklist-label">Presigned URL satu fasilitas tidak</text>
+  <text x="550" y="546" class="checklist-label">akses objek fasilitas lain</text>
+
+</svg>

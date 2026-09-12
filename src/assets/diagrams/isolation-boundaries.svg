@@ -1,0 +1,178 @@
+<svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .chip { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1; }
+      .chip-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1; }
+      .chip-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1; }
+      .resource-name { fill: #FFFFFF; stroke: none; }
+      .divider { stroke: #D9E0DD; stroke-width: 1; fill: none; }
+      .test-badge { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; font-weight: 600; fill: #0F6E56; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" class="title">Isolation Boundaries per Resource</text>
+
+  <!-- ============ PANEL A: DATA CLASSES ============ -->
+  <!-- Box 1: Volume tinggi -->
+  <rect x="20" y="60" width="300" height="140" class="box-teal" rx="4" />
+  <text x="170" y="85" text-anchor="middle" class="label">Volume tinggi</text>
+  <text x="30" y="105" class="sublabel">Contoh:</text>
+  <text x="30" y="119" class="sublabel">Kunjungan, observasi,</text>
+  <text x="30" y="133" class="sublabel">hasil lab, resep,</text>
+  <text x="30" y="147" class="sublabel">jejak audit</text>
+  <rect x="30" y="160" width="140" height="28" class="chip-teal" rx="3" />
+  <text x="100" y="177" text-anchor="middle" class="zone-label">Partisi + RLS</text>
+
+  <!-- Box 2: Volume sedang -->
+  <rect x="350" y="60" width="300" height="140" class="box-indigo" rx="4" />
+  <text x="500" y="85" text-anchor="middle" class="label">Volume sedang</text>
+  <text x="360" y="105" class="sublabel">Contoh:</text>
+  <text x="360" y="119" class="sublabel">Pasien, pengguna,</text>
+  <text x="360" y="133" class="sublabel">departemen,</text>
+  <text x="360" y="147" class="sublabel">konfigurasi</text>
+  <rect x="360" y="160" width="120" height="28" class="chip-indigo" rx="3" />
+  <text x="420" y="177" text-anchor="middle" class="zone-label">RLS saja</text>
+
+  <!-- Box 3: Referensi global -->
+  <rect x="680" y="60" width="300" height="140" class="box" rx="4" />
+  <text x="830" y="85" text-anchor="middle" class="label">Referensi global</text>
+  <text x="690" y="105" class="sublabel">Contoh:</text>
+  <text x="690" y="119" class="sublabel">ICD-10, formularium</text>
+  <text x="690" y="133" class="sublabel">obat, wilayah</text>
+  <text x="690" y="147" class="sublabel"></text>
+  <rect x="690" y="160" width="190" height="28" class="chip" rx="3" />
+  <text x="785" y="177" text-anchor="middle" class="sublabel" font-weight="600">Tanpa tenant, read-only</text>
+
+  <!-- ============ PANEL B: RESOURCES ============ -->
+
+  <!-- Row 1: RDS PostgreSQL -->
+  <rect x="20" y="230" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="230" width="140" height="90" class="box-teal" rx="4" />
+  <text x="90" y="258" text-anchor="middle" class="label" fill="#FFFFFF">RDS</text>
+  <text x="90" y="273" text-anchor="middle" class="sublabel" fill="#FFFFFF">PostgreSQL</text>
+
+  <line x1="165" y1="235" x2="165" y2="315" class="divider" />
+  <text x="180" y="248" class="label">Boundary:</text>
+  <text x="180" y="263" class="sublabel">tenant_id row +</text>
+  <text x="180" y="275" class="sublabel">partition key</text>
+
+  <line x1="380" y1="235" x2="380" y2="315" class="divider" />
+  <text x="395" y="248" class="label">Control:</text>
+  <text x="395" y="263" class="sublabel">FORCE RLS, USING/</text>
+  <text x="395" y="275" class="sublabel">WITH CHECK, SET LOCAL</text>
+
+  <line x1="660" y1="235" x2="660" y2="315" class="divider" />
+  <text x="675" y="258" class="test-badge">✓ A ≠ baca/tulis B;</text>
+  <text x="675" y="273" class="test-badge">tanpa = 0 baris</text>
+
+  <!-- Row 2: S3 documents -->
+  <rect x="20" y="335" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="335" width="140" height="90" class="box-clay" rx="4" />
+  <text x="90" y="363" text-anchor="middle" class="label" fill="#16211E">S3</text>
+  <text x="90" y="378" text-anchor="middle" class="sublabel" fill="#16211E">documents</text>
+
+  <line x1="165" y1="340" x2="165" y2="420" class="divider" />
+  <text x="180" y="353" class="label">Boundary:</text>
+  <text x="180" y="368" class="sublabel">Prefix tenant +</text>
+  <text x="180" y="380" class="sublabel">object metadata</text>
+
+  <line x1="380" y1="340" x2="380" y2="420" class="divider" />
+  <text x="395" y="353" class="label">Control:</text>
+  <text x="395" y="368" class="sublabel">IAM condition, KMS,</text>
+  <text x="395" y="380" class="sublabel">presigned URL/objek</text>
+
+  <line x1="660" y1="340" x2="660" y2="420" class="divider" />
+  <text x="675" y="363" class="test-badge">✓ URL A ≠ baca</text>
+  <text x="675" y="378" class="test-badge">objek B</text>
+
+  <!-- Row 3: Redis cache -->
+  <rect x="20" y="440" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="440" width="140" height="90" class="box-indigo" rx="4" />
+  <text x="90" y="468" text-anchor="middle" class="label" fill="#16211E">Redis</text>
+  <text x="90" y="483" text-anchor="middle" class="sublabel" fill="#16211E">cache</text>
+
+  <line x1="165" y1="445" x2="165" y2="525" class="divider" />
+  <text x="180" y="458" class="label">Boundary:</text>
+  <text x="180" y="473" class="sublabel">Key berprefiks</text>
+  <text x="180" y="485" class="sublabel">tenant</text>
+
+  <line x1="380" y1="445" x2="380" y2="525" class="divider" />
+  <text x="395" y="458" class="label">Control:</text>
+  <text x="395" y="473" class="sublabel">Key builder</text>
+  <text x="395" y="485" class="sublabel">terpusat</text>
+
+  <line x1="660" y1="445" x2="660" y2="525" class="divider" />
+  <text x="675" y="468" class="test-badge">✓ A ≠ cache hit</text>
+  <text x="675" y="483" class="test-badge">B</text>
+
+  <!-- Row 4: Amazon MQ -->
+  <rect x="20" y="545" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="545" width="140" height="90" class="box-teal" rx="4" />
+  <text x="90" y="573" text-anchor="middle" class="label" fill="#FFFFFF">Amazon</text>
+  <text x="90" y="588" text-anchor="middle" class="sublabel" fill="#FFFFFF">MQ</text>
+
+  <line x1="165" y1="550" x2="165" y2="630" class="divider" />
+  <text x="180" y="563" class="label">Boundary:</text>
+  <text x="180" y="578" class="sublabel">tenant_id di</text>
+  <text x="180" y="590" class="sublabel">envelope pesan</text>
+
+  <line x1="380" y1="550" x2="380" y2="630" class="divider" />
+  <text x="395" y="563" class="label">Control:</text>
+  <text x="395" y="578" class="sublabel">Validasi producer/</text>
+  <text x="395" y="590" class="sublabel">consumer, DLQ, idempotency</text>
+
+  <line x1="660" y1="550" x2="660" y2="630" class="divider" />
+  <text x="675" y="573" class="test-badge">✓ Consumer tolak</text>
+  <text x="675" y="588" class="test-badge">header ≠ payload</text>
+
+  <!-- Row 5: Logs/traces/metrics -->
+  <rect x="20" y="650" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="650" width="140" height="90" class="box-clay" rx="4" />
+  <text x="90" y="678" text-anchor="middle" class="label" fill="#16211E">Logs/traces/</text>
+  <text x="90" y="693" text-anchor="middle" class="sublabel" fill="#16211E">metrics</text>
+
+  <line x1="165" y1="655" x2="165" y2="735" class="divider" />
+  <text x="180" y="668" class="label">Boundary:</text>
+  <text x="180" y="683" class="sublabel">Label tenant_id,</text>
+  <text x="180" y="695" class="sublabel">tanpa PHI</text>
+
+  <line x1="380" y1="655" x2="380" y2="735" class="divider" />
+  <text x="395" y="668" class="label">Control:</text>
+  <text x="395" y="683" class="sublabel">Redaksi, access</text>
+  <text x="395" y="695" class="sublabel">boundary</text>
+
+  <line x1="660" y1="655" x2="660" y2="735" class="divider" />
+  <text x="675" y="673" class="test-badge">✓ Log ≠ NIK/</text>
+  <text x="675" y="688" class="test-badge">rekam medis</text>
+
+  <!-- Row 6: Backup/restore -->
+  <rect x="20" y="755" width="960" height="90" class="box" rx="4" />
+  <rect x="20" y="755" width="140" height="90" class="box-indigo" rx="4" />
+  <text x="90" y="783" text-anchor="middle" class="label" fill="#16211E">Backup/</text>
+  <text x="90" y="798" text-anchor="middle" class="sublabel" fill="#16211E">restore</text>
+
+  <line x1="165" y1="760" x2="165" y2="840" class="divider" />
+  <text x="180" y="773" class="label">Boundary:</text>
+  <text x="180" y="788" class="sublabel">Mapping</text>
+  <text x="180" y="800" class="sublabel">tenant</text>
+
+  <line x1="380" y1="760" x2="380" y2="840" class="divider" />
+  <text x="395" y="773" class="label">Control:</text>
+  <text x="395" y="788" class="sublabel">Enkripsi, validasi</text>
+  <text x="395" y="800" class="sublabel">restore</text>
+
+  <line x1="660" y1="760" x2="660" y2="840" class="divider" />
+  <text x="675" y="778" class="test-badge">✓ Restore per</text>
+  <text x="675" y="793" class="test-badge">tenant lengkap</text>
+  <text x="675" y="808" class="test-badge">(row count cocok)</text>
+
+</svg>

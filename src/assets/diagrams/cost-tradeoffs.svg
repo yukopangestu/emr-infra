@@ -1,0 +1,134 @@
+<svg viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #16211E; font-weight: 600; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .value-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #16211E; }
+      .savings-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Estimasi Biaya &amp; Trade-off (± $5.060/bulan)</text>
+
+  <!-- ============ PANEL A: COST BREAKDOWN BY LAYER ============ -->
+
+  <!-- Total label chip at top-right -->
+  <rect x="750" y="50" width="230" height="30" class="box-teal" rx="4" />
+  <text x="865" y="70" text-anchor="middle" class="zone-label">Total ≈ $5.060/bulan</text>
+  <text x="865" y="85" text-anchor="middle" class="sublabel">(≈ Rp88,8 juta)</text>
+
+  <!-- Bar 1: Data 1705 -->
+  <text x="45" y="115" class="label">Data</text>
+  <rect x="150" y="105" width="600" height="18" class="box-teal" rx="0" />
+  <text x="755" y="116" class="value-label">$1.705</text>
+
+  <!-- Bar 2: Backup & DR 900 -->
+  <text x="45" y="150" class="label">Backup &amp; DR</text>
+  <rect x="150" y="140" width="318" height="18" class="box-teal" rx="0" />
+  <text x="475" y="151" class="value-label">$900</text>
+
+  <!-- Bar 3: Messaging 690 -->
+  <text x="45" y="185" class="label">Messaging</text>
+  <rect x="150" y="175" width="243" height="18" class="box-teal" rx="0" />
+  <text x="400" y="186" class="value-label">$690</text>
+
+  <!-- Bar 4: Compute 587 -->
+  <text x="45" y="220" class="label">Compute</text>
+  <rect x="150" y="210" width="207" height="18" class="box-teal" rx="0" />
+  <text x="365" y="221" class="value-label">$587</text>
+
+  <!-- Bar 5: Storage 300 -->
+  <text x="45" y="255" class="label">Storage</text>
+  <rect x="150" y="245" width="106" height="18" class="box-teal" rx="0" />
+  <text x="263" y="256" class="value-label">$300</text>
+
+  <!-- Bar 6: Observability 260 -->
+  <text x="45" y="290" class="label">Observability</text>
+  <rect x="150" y="280" width="92" height="18" class="box-teal" rx="0" />
+  <text x="250" y="291" class="value-label">$260</text>
+
+  <!-- Bar 7: Cache 260 -->
+  <text x="45" y="325" class="label">Cache</text>
+  <rect x="150" y="315" width="92" height="18" class="box-teal" rx="0" />
+  <text x="250" y="326" class="value-label">$260</text>
+
+  <!-- Bar 8: Load balancing 194 -->
+  <text x="45" y="360" class="label">Load balancing</text>
+  <rect x="150" y="350" width="68" height="18" class="box-teal" rx="0" />
+  <text x="225" y="361" class="value-label">$194</text>
+
+  <!-- Bar 9: Edge 55 -->
+  <text x="45" y="395" class="label">Edge</text>
+  <rect x="150" y="385" width="19" height="18" class="box-teal" rx="0" />
+  <text x="177" y="396" class="value-label">$55</text>
+
+  <!-- Bar 10: Transfer 80 -->
+  <text x="45" y="430" class="label">Transfer</text>
+  <rect x="150" y="420" width="28" height="18" class="box-teal" rx="0" />
+  <text x="186" y="431" class="value-label">$80</text>
+
+  <!-- Bar 11: Secrets & KMS 17 -->
+  <text x="45" y="465" class="label">Secrets &amp; KMS</text>
+  <rect x="150" y="455" width="6" height="18" class="box-teal" rx="0" />
+  <text x="164" y="466" class="value-label">$17</text>
+
+  <!-- Bar 12: CI/CD 10 -->
+  <text x="45" y="500" class="label">CI/CD</text>
+  <rect x="150" y="490" width="4" height="18" class="box-teal" rx="0" />
+  <text x="162" y="501" class="value-label">$10</text>
+
+  <!-- ============ PANEL B: TRADE-OFF ROWS ============ -->
+
+  <!-- Row 1: Amazon MQ → RabbitMQ di EKS -->
+  <text x="50" y="560" class="label">Amazon MQ → RabbitMQ di EKS</text>
+  <line x1="350" y1="550" x2="380" y2="550" class="arrow" />
+  <rect x="390" y="535" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="555" text-anchor="middle" class="sublabel">Beban ops pindah ke tim</text>
+  <text x="750" y="560" class="savings-label">~$550/bln</text>
+
+  <!-- Row 2: DR region → snapshot saja -->
+  <text x="50" y="625" class="label">DR region → snapshot saja</text>
+  <line x1="350" y1="615" x2="380" y2="615" class="arrow" />
+  <rect x="390" y="600" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="615" text-anchor="middle" class="sublabel">RTO region: 2 jam → ±8 jam</text>
+  <text x="750" y="625" class="savings-label">~$650/bln</text>
+
+  <!-- Row 3: Read replica dihapus -->
+  <text x="50" y="690" class="label">Read replica dihapus</text>
+  <line x1="350" y1="680" x2="380" y2="680" class="arrow" />
+  <rect x="390" y="665" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="680" text-anchor="middle" class="sublabel">Reporting bebani primary</text>
+  <text x="750" y="690" class="savings-label">~$435/bln</text>
+
+  <!-- Row 4: NAT ×3 → ×1 -->
+  <text x="50" y="755" class="label">NAT ×3 → ×1</text>
+  <line x1="350" y1="745" x2="380" y2="745" class="arrow" />
+  <rect x="390" y="730" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="745" text-anchor="middle" class="sublabel">Kehilangan 1 AZ = putus egress</text>
+  <text x="750" y="755" class="savings-label">~$90/bln</text>
+
+  <!-- Row 5: EKS → ECS on EC2 -->
+  <text x="50" y="820" class="label">EKS → ECS on EC2</text>
+  <line x1="350" y1="810" x2="380" y2="810" class="arrow" />
+  <rect x="390" y="795" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="810" text-anchor="middle" class="sublabel">Kehilangan ekosistem K8s</text>
+  <text x="750" y="820" class="savings-label">~$73/bln</text>
+
+  <!-- Row 6: Savings Plan 1 tahun -->
+  <text x="50" y="885" class="label">Savings Plan 1 tahun</text>
+  <line x1="350" y1="875" x2="380" y2="875" class="arrow" />
+  <rect x="390" y="860" width="200" height="30" class="box-clay" rx="4" />
+  <text x="490" y="875" text-anchor="middle" class="sublabel">Perlu komitmen anggaran</text>
+  <text x="750" y="885" class="savings-label">~30% compute</text>
+
+</svg>

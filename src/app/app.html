@@ -32,27 +32,8 @@
   }
 
   <main class="document" id="main-content">
-    <header class="masthead">
-      <h1>{{ architecture.title }}</h1>
-      <p class="lede">{{ architecture.lede }}</p>
-      <div class="meta">
-        @for (item of metadata; track item[0]) {
-          <span><b>{{ item[0] }}</b>{{ item[1] }}</span>
-        }
-      </div>
-    </header>
-
     @for (section of sections; track section.id) {
       <section class="document-section" [id]="section.id">
-        <div class="eyebrow">
-          <span class="num">{{ section.number }}</span>
-          <h2>{{ section.title }}</h2>
-        </div>
-
-        @for (paragraph of getParagraphs(section); track $index) {
-          <p [innerHTML]="paragraph"></p>
-        }
-
         @if (section.diagram) {
           <app-diagram-box
             [altText]="section.title"
@@ -68,57 +49,7 @@
             [diagramFile]="diagram.file"
           />
         }
-
-        @if (section.cards) {
-          <div class="cards">
-            @for (card of section.cards; track card.title) {
-              <article class="card">
-                <b>{{ card.title }}</b>
-                <span>{{ card.description }}</span>
-              </article>
-            }
-          </div>
-        }
-
-        @if (section.steps) {
-          <div class="flow" aria-label="Tahapan CI/CD">
-            @for (step of section.steps; track step.title) {
-              <div class="step" [class.gate]="step.isGate">
-                <b>{{ step.title }}</b>
-                <span>{{ step.description }}</span>
-              </div>
-            }
-          </div>
-        }
-
-        @if (section.numberedList) {
-          <ol class="rules">
-            @for (rule of section.numberedList; track rule) {
-              <li>{{ rule }}</li>
-            }
-          </ol>
-        }
-
-        @for (table of section.tables ?? []; track $index) {
-          @if (section.subheading && $index === 1) {
-            <h3 class="subheading">{{ section.subheading }}</h3>
-            <p class="subheading-description">{{ section.subheadingDescription }}</p>
-          }
-          <app-table-component [table]="table" />
-        }
-
-        @for (paragraph of section.postContent ?? []; track paragraph) {
-          <p>{{ paragraph }}</p>
-        }
-
-        @for (callout of section.callouts ?? []; track $index) {
-          <app-callout [callout]="callout" />
-        }
       </section>
-    }
-
-    @if (architecture.footer) {
-      <footer class="document-footer">{{ architecture.footer }}</footer>
     }
   </main>
 </div>

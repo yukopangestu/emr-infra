@@ -1,0 +1,131 @@
+<svg viewBox="0 0 1000 1050" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #16211E; font-weight: 600; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Reliability: SLO &amp; Failure Modes</text>
+
+  <!-- ============ PANEL A: SLO LADDER ============ -->
+  <!-- Header row -->
+  <rect x="50" y="55" width="900" height="45" class="box-teal" rx="4" />
+  <text x="70" y="83" class="label">Workflow Class</text>
+  <text x="620" y="83" text-anchor="middle" class="label">SLO Target</text>
+  <text x="800" y="83" text-anchor="middle" class="label">Error Budget / Month</text>
+
+  <!-- SLO 1: Klinis -->
+  <rect x="50" y="105" width="900" height="40" class="box-teal" rx="4" />
+  <text x="70" y="130" class="label">Klinis (registrasi, encounter, order, result)</text>
+  <text x="620" y="130" text-anchor="middle" class="label">99,9%</text>
+  <text x="800" y="130" text-anchor="middle" class="label">±43 menit</text>
+
+  <!-- SLO 2: Aplikasi pasien -->
+  <rect x="50" y="150" width="900" height="40" class="box" rx="4" />
+  <text x="70" y="175" class="label">Aplikasi pasien</text>
+  <text x="620" y="175" text-anchor="middle" class="label">99,5%</text>
+  <text x="800" y="175" text-anchor="middle" class="label">±3,6 jam</text>
+
+  <!-- SLO 3: Admin &amp; billing -->
+  <rect x="50" y="195" width="900" height="40" class="box" rx="4" />
+  <text x="70" y="220" class="label">Admin &amp; billing</text>
+  <text x="620" y="220" text-anchor="middle" class="label">99,5%</text>
+  <text x="800" y="220" text-anchor="middle" class="label">±3,6 jam</text>
+
+  <!-- SLO 4: Reporting -->
+  <rect x="50" y="240" width="900" height="40" class="box" rx="4" />
+  <text x="70" y="265" class="label">Reporting</text>
+  <text x="620" y="265" text-anchor="middle" class="label">99,0%</text>
+  <text x="800" y="265" text-anchor="middle" class="label">±7,2 jam</text>
+
+  <!-- SLO 5: Integrasi SATUSEHAT/BPJS -->
+  <rect x="50" y="285" width="900" height="40" class="box" rx="4" />
+  <text x="70" y="310" class="label">Integrasi SATUSEHAT/BPJS</text>
+  <text x="620" y="310" text-anchor="middle" class="label">99,0%</text>
+  <text x="800" y="310" text-anchor="middle" class="sublabel">rekonsiliasi ≤24h</text>
+
+  <!-- SLO 6: Audit event -->
+  <rect x="50" y="330" width="900" height="40" class="box-teal" rx="4" />
+  <text x="70" y="355" class="label">Audit event</text>
+  <text x="620" y="355" text-anchor="middle" class="label">99,99%</text>
+  <text x="800" y="355" text-anchor="middle" class="sublabel">tidak boleh hilang</text>
+
+  <!-- ============ PANEL B: FAILURE MODES ============ -->
+  <text x="50" y="420" class="zone-label">Failure Modes &amp; Auto-Mitigations</text>
+
+  <!-- Row 1, Col 1: RDS primary AZ gagal -->
+  <rect x="50" y="435" width="425" height="105" class="box" rx="4" />
+  <text x="70" y="458" class="label">RDS primary AZ gagal</text>
+  <line x1="70" y1="468" x2="455" y2="468" stroke="#D9E0DD" stroke-width="1" />
+  <text x="70" y="488" class="sublabel">Auto: Multi-AZ failover +</text>
+  <text x="70" y="502" class="sublabel">PgBouncer reconnect</text>
+  <text x="70" y="529" class="sublabel">Manual: Verifikasi replica lag</text>
+
+  <!-- Row 1, Col 2: Kedua PgBouncer mati -->
+  <rect x="525" y="435" width="425" height="105" class="box" rx="4" />
+  <text x="545" y="458" class="label">Kedua PgBouncer mati</text>
+  <line x1="545" y1="468" x2="930" y2="468" stroke="#D9E0DD" stroke-width="1" />
+  <text x="545" y="488" class="sublabel">Auto: Reschedule pod</text>
+  <text x="545" y="502" class="sublabel">(fail closed, no bypass)</text>
+  <text x="545" y="529" class="sublabel">Manual: Scale up / rollback</text>
+
+  <!-- Row 2, Col 1: Noisy neighbor tenant -->
+  <rect x="50" y="550" width="425" height="105" class="box" rx="4" />
+  <text x="70" y="573" class="label">Noisy neighbor tenant</text>
+  <line x1="70" y1="583" x2="455" y2="583" stroke="#D9E0DD" stroke-width="1" />
+  <text x="70" y="603" class="sublabel">Auto: Bulkhead +</text>
+  <text x="70" y="617" class="sublabel">statement_timeout</text>
+  <text x="70" y="644" class="sublabel">Manual: Throttle di gateway</text>
+
+  <!-- Row 2, Col 2: Amazon MQ down -->
+  <rect x="525" y="550" width="425" height="105" class="box" rx="4" />
+  <text x="545" y="573" class="label">Amazon MQ down</text>
+  <line x1="545" y1="583" x2="930" y2="583" stroke="#D9E0DD" stroke-width="1" />
+  <text x="545" y="603" class="sublabel">Auto: Outbox menahan event +</text>
+  <text x="545" y="617" class="sublabel">relay retry</text>
+  <text x="545" y="644" class="sublabel">Manual: Replay outbox</text>
+
+  <!-- Row 3, Col 1: Redis gagal -->
+  <rect x="50" y="665" width="425" height="105" class="box" rx="4" />
+  <text x="70" y="688" class="label">Redis gagal</text>
+  <line x1="70" y1="698" x2="455" y2="698" stroke="#D9E0DD" stroke-width="1" />
+  <text x="70" y="718" class="sublabel">Auto: Failover + circuit breaker</text>
+  <text x="70" y="732" class="sublabel">lewati cache</text>
+  <text x="70" y="759" class="sublabel">Manual: Pantau beban DB</text>
+
+  <!-- Row 3, Col 2: Satu AZ hilang -->
+  <rect x="525" y="665" width="425" height="105" class="box" rx="4" />
+  <text x="545" y="688" class="label">Satu AZ hilang</text>
+  <line x1="545" y1="698" x2="930" y2="698" stroke="#D9E0DD" stroke-width="1" />
+  <text x="545" y="718" class="sublabel">Auto: Pod pindah AZ +</text>
+  <text x="545" y="732" class="sublabel">autoscale + NAT per AZ</text>
+  <text x="545" y="759" class="sublabel">Manual: Verifikasi kapasitas</text>
+
+  <!-- Row 4, Col 1: Deploy bermasalah -->
+  <rect x="50" y="780" width="425" height="105" class="box" rx="4" />
+  <text x="70" y="803" class="label">Deploy bermasalah</text>
+  <line x1="70" y1="813" x2="455" y2="813" stroke="#D9E0DD" stroke-width="1" />
+  <text x="70" y="833" class="sublabel">Auto: Auto-rollback dari</text>
+  <text x="70" y="847" class="sublabel">analisis canary</text>
+  <text x="70" y="874" class="sublabel">Manual: Postmortem</text>
+
+  <!-- Row 4, Col 2: Region Jakarta down (SEVERITY FLAG) -->
+  <rect x="525" y="780" width="425" height="105" class="box-clay" rx="4" />
+  <text x="545" y="803" class="label">Region Jakarta down</text>
+  <line x1="545" y1="813" x2="930" y2="813" stroke="#DCAE9E" stroke-width="1" />
+  <text x="545" y="833" class="sublabel">Auto: —</text>
+  <text x="545" y="860" class="sublabel">Manual: Runbook DR, RTO 2 jam</text>
+
+</svg>

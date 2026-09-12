@@ -1,0 +1,93 @@
+<svg viewBox="0 0 960 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #4A5A55; }
+      .stat-value { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; fill: #16211E; }
+      .stat-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; fill: #4A5A55; }
+      .pillar-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .pillar-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .line { stroke: #D9E0DD; stroke-width: 1; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="30" text-anchor="middle" class="title">Asumsi &amp; Scope Platform</text>
+
+  <!-- Subtitle: Platform overview -->
+  <text x="480" y="52" text-anchor="middle" class="subtitle">Flutter pasien · Angular dashboard staf · Java services on EKS</text>
+
+  <!-- ============ STAT GRID - ROW 1 ============ -->
+  <!-- Stat 1: Fasilitas -->
+  <rect x="30" y="75" width="200" height="65" class="box-teal" rx="4" />
+  <text x="130" y="98" text-anchor="middle" class="stat-value">50 → 150</text>
+  <text x="130" y="115" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Fasilitas, go-live → 2 tahun</text>
+
+  <!-- Stat 2: Staf -->
+  <rect x="255" y="75" width="200" height="65" class="box-teal" rx="4" />
+  <text x="355" y="98" text-anchor="middle" class="stat-value">±2.500 / 800</text>
+  <text x="355" y="115" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Staf terdaftar / puncak sesi</text>
+
+  <!-- Stat 3: Pasien -->
+  <rect x="480" y="75" width="200" height="65" class="box-teal" rx="4" />
+  <text x="580" y="98" text-anchor="middle" class="stat-value">±100.000 / 5%</text>
+  <text x="580" y="115" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Pasien terdaftar / aktif harian</text>
+
+  <!-- Stat 4: Beban Puncak -->
+  <rect x="705" y="75" width="200" height="65" class="box-teal" rx="4" />
+  <text x="805" y="98" text-anchor="middle" class="stat-value">±300 rps</text>
+  <text x="805" y="115" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Beban puncak (08.00–11.00)</text>
+
+  <!-- ============ STAT GRID - ROW 2 ============ -->
+  <!-- Stat 5: Encounter -->
+  <rect x="30" y="155" width="200" height="65" class="box-teal" rx="4" />
+  <text x="130" y="178" text-anchor="middle" class="stat-value">±20.000</text>
+  <text x="130" y="195" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Encounter seluruh fasilitas/hari</text>
+
+  <!-- Stat 6: Pertumbuhan Data -->
+  <rect x="255" y="155" width="200" height="65" class="box-teal" rx="4" />
+  <text x="355" y="178" text-anchor="middle" class="stat-value">80 GB + 150 GB</text>
+  <text x="355" y="195" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Pertumbuhan DB + S3/bulan</text>
+
+  <!-- Stat 7: SLO -->
+  <rect x="480" y="155" width="200" height="65" class="box-teal" rx="4" />
+  <text x="580" y="178" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-value">99,9% · RPO 5m</text>
+  <text x="580" y="195" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">SLO klinis · AZ/DB/Region</text>
+
+  <!-- Stat 8: DR -->
+  <rect x="705" y="155" width="200" height="65" class="box-teal" rx="4" />
+  <text x="805" y="178" text-anchor="middle" class="stat-value">Indonesia</text>
+  <text x="805" y="195" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="stat-label">Primary · DR lintas negara: approval Legal</text>
+
+  <!-- ============ FLOW ARROW ============ -->
+  <line x1="480" y1="235" x2="480" y2="255" class="arrow" />
+
+  <!-- ============ PILLARS - ROW 1 ============ -->
+  <!-- Pillar 1: Tenant Model -->
+  <rect x="30" y="260" width="200" height="65" class="box-indigo" rx="4" />
+  <text x="130" y="283" text-anchor="middle" class="pillar-title">Tenant Model</text>
+  <text x="130" y="301" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="pillar-desc">Pooled PostgreSQL + partisi + RLS</text>
+
+  <!-- Pillar 2: Edge & Akses -->
+  <rect x="255" y="260" width="200" height="65" class="box-indigo" rx="4" />
+  <text x="355" y="283" text-anchor="middle" class="pillar-title">Edge &amp; Akses</text>
+  <text x="355" y="301" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="pillar-desc">Cloudflare + IdP/MFA + Zero Trust</text>
+
+  <!-- Pillar 3: Reliability -->
+  <rect x="480" y="260" width="200" height="65" class="box-indigo" rx="4" />
+  <text x="580" y="283" text-anchor="middle" class="pillar-title">Reliability</text>
+  <text x="580" y="301" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="pillar-desc">SLO per kelas + burn-rate + drill</text>
+
+  <!-- Pillar 4: Delivery -->
+  <rect x="705" y="260" width="200" height="65" class="box-indigo" rx="4" />
+  <text x="805" y="283" text-anchor="middle" class="pillar-title">Delivery</text>
+  <text x="805" y="301" text-anchor="middle" textLength="190" lengthAdjust="spacingAndGlyphs" class="pillar-desc">Terraform + GitOps + canary</text>
+
+</svg>

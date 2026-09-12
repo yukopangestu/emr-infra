@@ -1,0 +1,119 @@
+<svg viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .chip-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; font-weight: 600; fill: #16211E; }
+      .region { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 2; stroke-dasharray: 5,3; }
+      .primary { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .candidate { fill: #F7EEDA; stroke: #D9BE84; stroke-width: 1.5; }
+      .data { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Disaster Recovery: RPO/RTO &amp; Drills</text>
+
+  <!-- PANEL A: Components with RPO/RTO -->
+  <rect x="40" y="60" width="920" height="320" class="region" rx="6" />
+  <text x="70" y="90" class="label">Component RPO/RTO Targets</text>
+
+  <!-- Row 1: RDS PostgreSQL -->
+  <rect x="70" y="110" width="860" height="42" class="primary" rx="4" />
+  <text x="80" y="133" class="label">RDS PostgreSQL</text>
+  <rect x="680" y="117" width="70" height="28" class="primary" rx="14" />
+  <text x="715" text-anchor="middle" y="135" class="chip-label">RPO ≤5 min</text>
+  <rect x="760" y="117" width="65" height="28" class="primary" rx="14" />
+  <text x="792" text-anchor="middle" y="135" class="chip-label">RTO ≤1 hr</text>
+
+  <!-- Row 2: S3 Documents -->
+  <rect x="70" y="160" width="860" height="42" class="data" rx="4" />
+  <text x="80" y="183" class="label">S3 Medical Documents</text>
+  <rect x="680" y="167" width="70" height="28" class="data" rx="14" />
+  <text x="715" text-anchor="middle" y="185" class="chip-label">RPO ≤15 min</text>
+  <rect x="760" y="167" width="65" height="28" class="data" rx="14" />
+  <text x="792" text-anchor="middle" y="185" class="chip-label">RTO ≤1 hr</text>
+
+  <!-- Row 3: ElastiCache Redis -->
+  <rect x="70" y="210" width="860" height="42" class="candidate" rx="4" />
+  <text x="80" y="233" class="label">ElastiCache Redis</text>
+  <rect x="680" y="217" width="70" height="28" class="candidate" rx="14" />
+  <text x="715" text-anchor="middle" y="235" class="chip-label">RPO: sessions</text>
+  <rect x="760" y="217" width="65" height="28" class="candidate" rx="14" />
+  <text x="792" text-anchor="middle" y="235" class="chip-label">RTO ≤15 min</text>
+
+  <!-- Row 4: Amazon MQ -->
+  <rect x="70" y="260" width="860" height="42" class="primary" rx="4" />
+  <text x="80" y="283" class="label">Amazon MQ (Outbox Pattern)</text>
+  <rect x="680" y="267" width="70" height="28" class="primary" rx="14" />
+  <text x="715" text-anchor="middle" y="285" class="chip-label">RPO ≤5 min</text>
+  <rect x="760" y="267" width="65" height="28" class="primary" rx="14" />
+  <text x="792" text-anchor="middle" y="285" class="chip-label">RTO ≤2 hr</text>
+
+  <!-- Row 5: Single AZ Failure -->
+  <rect x="70" y="310" width="860" height="42" class="candidate" rx="4" />
+  <text x="80" y="333" class="label">Single AZ Failure</text>
+  <rect x="680" y="317" width="70" height="28" class="candidate" rx="14" />
+  <text x="715" text-anchor="middle" y="335" class="chip-label">RPO ≈ 0</text>
+  <rect x="760" y="317" width="65" height="28" class="candidate" rx="14" />
+  <text x="792" text-anchor="middle" y="335" class="chip-label">RTO ≤5 min</text>
+
+  <!-- Row 6: Region Failure -->
+  <rect x="70" y="360" width="860" height="42" class="data" rx="4" />
+  <text x="80" y="383" class="label">Region Failure (DR Activation)</text>
+  <rect x="680" y="367" width="70" height="28" class="data" rx="14" />
+  <text x="715" text-anchor="middle" y="385" class="chip-label">RPO ≤5 min</text>
+  <rect x="760" y="367" width="65" height="28" class="data" rx="14" />
+  <text x="792" text-anchor="middle" y="385" class="chip-label">RTO ≤2 hr</text>
+
+  <!-- PANEL B: DR Drill Cadence -->
+  <text x="70" y="430" class="label">DR Drill Cadence</text>
+
+  <!-- Drill 1: Restore RDS -->
+  <rect x="40" y="445" width="210" height="175" class="primary" rx="4" />
+  <text x="145" y="467" text-anchor="middle" class="label">Restore RDS to</text>
+  <text x="145" y="483" text-anchor="middle" class="label">Temporary Instance</text>
+  <rect x="65" y="495" width="160" height="22" class="primary" rx="11" />
+  <text x="145" text-anchor="middle" y="509" class="chip-label">Monthly</text>
+  <text x="50" y="535" class="sublabel">Pass criteria:</text>
+  <text x="50" y="549" class="sublabel">RTO met; checksum</text>
+  <text x="50" y="563" class="sublabel">&amp; row count match</text>
+  <text x="50" y="577" class="sublabel">(≤1 hour)</text>
+
+  <!-- Drill 2: Restore Single Tenant -->
+  <rect x="265" y="445" width="210" height="175" class="candidate" rx="4" />
+  <text x="370" y="467" text-anchor="middle" class="label">Restore Single</text>
+  <text x="370" y="483" text-anchor="middle" class="label">Tenant Data</text>
+  <rect x="290" y="495" width="160" height="22" class="candidate" rx="11" />
+  <text x="370" text-anchor="middle" y="509" class="chip-label">Quarterly</text>
+  <text x="275" y="535" class="sublabel">Pass criteria:</text>
+  <text x="275" y="549" class="sublabel">Partition export/</text>
+  <text x="275" y="563" class="sublabel">import without</text>
+  <text x="275" y="577" class="sublabel">conflicts</text>
+
+  <!-- Drill 3: Failover AZ (Game Day) -->
+  <rect x="490" y="445" width="210" height="175" class="data" rx="4" />
+  <text x="595" y="467" text-anchor="middle" class="label">Failover AZ</text>
+  <text x="595" y="483" text-anchor="middle" class="label">(Game Day)</text>
+  <rect x="515" y="495" width="160" height="22" class="data" rx="11" />
+  <text x="595" text-anchor="middle" y="509" class="chip-label">Quarterly</text>
+  <text x="500" y="535" class="sublabel">Pass criteria:</text>
+  <text x="500" y="549" class="sublabel">Clinical SLO</text>
+  <text x="500" y="563" class="sublabel">maintained</text>
+  <text x="500" y="577" class="sublabel">(≤5 min RTO)</text>
+
+  <!-- Drill 4: Failover & Failback Region -->
+  <rect x="715" y="445" width="210" height="175" class="candidate" rx="4" />
+  <text x="820" y="467" text-anchor="middle" class="label">Failover &amp;</text>
+  <text x="820" y="483" text-anchor="middle" class="label">Failback Region</text>
+  <rect x="740" y="495" width="160" height="22" class="candidate" rx="11" />
+  <text x="820" text-anchor="middle" y="509" class="chip-label">Semi-annual</text>
+  <text x="725" y="535" class="sublabel">Pass criteria:</text>
+  <text x="725" y="549" class="sublabel">Synthetic workflow</text>
+  <text x="725" y="563" class="sublabel">passes; failback</text>
+  <text x="725" y="577" class="sublabel">with zero data loss</text>
+</svg>

@@ -1,0 +1,112 @@
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .rls-band { fill: #0F6E56; opacity: 0.08; stroke: #0F6E56; stroke-width: 2; }
+      .arrow { stroke: #0F6E56; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .tag { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; font-weight: 600; fill: #4A5A55; }
+      .tag-final { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; font-weight: 600; fill: #0F6E56; }
+      .key-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #16211E; }
+      .key-use { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; fill: #4A5A55; }
+      .rotation-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 9px; fill: #FFFFFF; font-weight: 600; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#0F6E56" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="30" text-anchor="middle" class="title">Defense-in-Depth &amp; Key Management</text>
+
+  <!-- ============ PANEL A: DEFENSE LAYERS ============ -->
+
+  <!-- L1: Cloudflare Pro + Zero Trust -->
+  <rect x="40" y="55" width="880" height="50" class="box" rx="4" />
+  <text x="60" y="75" class="label">L1</text>
+  <text x="85" y="75" class="label">Cloudflare Pro + Zero Trust</text>
+  <text x="85" y="88" class="sublabel">DDoS proxy, WAF, rate limit/IP</text>
+  <text x="880" y="80" text-anchor="end" class="tag">Preventif</text>
+
+  <!-- L2: WAF Regional (ALB) -->
+  <rect x="40" y="115" width="880" height="50" class="box" rx="4" />
+  <text x="60" y="135" class="label">L2</text>
+  <text x="85" y="135" class="label">WAF Regional (ALB)</text>
+  <text x="85" y="148" class="sublabel">Rate-based + custom rule; origin hanya Cloudflare</text>
+  <text x="880" y="140" text-anchor="end" class="tag">Preventif</text>
+
+  <!-- L3: Security group + private subnet -->
+  <rect x="40" y="175" width="880" height="50" class="box" rx="4" />
+  <text x="60" y="195" class="label">L3</text>
+  <text x="85" y="195" class="label">Security group + private subnet</text>
+  <text x="85" y="208" class="sublabel">App/data tanpa IP publik; zona data tanpa rute internet</text>
+  <text x="880" y="200" text-anchor="end" class="tag">Preventif</text>
+
+  <!-- L4: Gateway & konteks aplikasi -->
+  <rect x="40" y="235" width="880" height="50" class="box" rx="4" />
+  <text x="60" y="255" class="label">L4</text>
+  <text x="85" y="255" class="label">Gateway &amp; konteks aplikasi</text>
+  <text x="85" y="268" class="sublabel">JWT valid, klaim=subdomain, SET LOCAL</text>
+  <text x="880" y="260" text-anchor="end" class="tag">Preventif</text>
+
+  <!-- L5: Row-Level Security (RDS) with teal highlight -->
+  <rect x="40" y="295" width="880" height="50" class="rls-band" rx="4" />
+  <rect x="40" y="295" width="880" height="50" fill="none" stroke="#0F6E56" stroke-width="2" rx="4" />
+  <text x="60" y="315" class="zone-label">L5</text>
+  <text x="85" y="315" class="zone-label">Row-Level Security (RDS)</text>
+  <text x="85" y="328" class="sublabel" style="fill: #0F6E56;">Setiap baris disaring mesin DB; tanpa konteks = 0 baris</text>
+  <text x="880" y="320" text-anchor="end" class="tag-final">Penegakan akhir</text>
+
+  <!-- ============ PANEL B: KMS KEYS ============ -->
+
+  <!-- Row 1 -->
+  <!-- Key 1: kms-rds-clinical -->
+  <rect x="40" y="370" width="280" height="100" class="box-indigo" rx="4" />
+  <text x="60" y="390" class="key-label">kms-rds-clinical</text>
+  <text x="60" y="405" class="key-use">RDS primary + replica</text>
+  <rect x="60" y="415" width="120" height="20" fill="#0F6E56" rx="3" />
+  <text x="120" y="428" text-anchor="middle" class="rotation-label">Rotasi tahunan (auto)</text>
+
+  <!-- Key 2: kms-s3-documents -->
+  <rect x="340" y="370" width="280" height="100" class="box-indigo" rx="4" />
+  <text x="360" y="390" class="key-label">kms-s3-documents</text>
+  <text x="360" y="405" class="key-use">S3 dokumen medis/radiologi</text>
+  <rect x="360" y="415" width="120" height="20" fill="#0F6E56" rx="3" />
+  <text x="420" y="428" text-anchor="middle" class="rotation-label">Rotasi tahunan (auto)</text>
+
+  <!-- Key 3: kms-field-pii -->
+  <rect x="640" y="370" width="280" height="100" class="box-indigo" rx="4" />
+  <text x="660" y="390" class="key-label">kms-field-pii</text>
+  <text x="660" y="405" class="key-use">Kolom NIK &amp; no. rekam medis</text>
+  <rect x="660" y="415" width="120" height="20" fill="#0F6E56" rx="3" />
+  <text x="720" y="428" text-anchor="middle" class="rotation-label">Manual, overlap 2 kunci</text>
+
+  <!-- Row 2 -->
+  <!-- Key 4: kms-secrets -->
+  <rect x="40" y="490" width="280" height="100" class="box-clay" rx="4" />
+  <text x="60" y="510" class="key-label">kms-secrets</text>
+  <text x="60" y="525" class="key-use">Secrets Manager</text>
+  <rect x="60" y="535" width="120" height="20" fill="#DCAE9E" rx="3" />
+  <text x="120" y="548" text-anchor="middle" class="rotation-label" style="fill: #16211E;">Tahunan; kredensial DB 90 hari</text>
+
+  <!-- Key 5: kms-ebs -->
+  <rect x="340" y="490" width="280" height="100" class="box-clay" rx="4" />
+  <text x="360" y="510" class="key-label">kms-ebs</text>
+  <text x="360" y="525" class="key-use">Volume node EKS</text>
+  <rect x="360" y="535" width="120" height="20" fill="#DCAE9E" rx="3" />
+  <text x="420" y="548" text-anchor="middle" class="rotation-label" style="fill: #16211E;">Rotasi tahunan (auto)</text>
+
+  <!-- Key 6: kms-backup-vault -->
+  <rect x="640" y="490" width="280" height="100" class="box-clay" rx="4" />
+  <text x="660" y="510" class="key-label">kms-backup-vault</text>
+  <text x="660" y="525" class="key-use">AWS Backup Vault Lock</text>
+  <rect x="660" y="535" width="120" height="20" fill="#DCAE9E" rx="3" />
+  <text x="720" y="548" text-anchor="middle" class="rotation-label" style="fill: #16211E;">Tahunan; ScheduleKeyDeletion ditolak</text>
+
+</svg>

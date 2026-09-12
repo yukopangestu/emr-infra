@@ -1,0 +1,146 @@
+<svg viewBox="0 0 1000 780" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; text-anchor: middle; }
+      .panel-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; fill: #4A5A55; }
+      .small { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; fill: #7C8A85; }
+      .zone-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; font-weight: 600; fill: #0F6E56; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1.5; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1.5; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1.5; }
+      .box-indigo { fill: #E7EAF4; stroke: #A9B6DC; stroke-width: 1.5; }
+      .chip { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; }
+      .chip-id { fill: #0F6E56; stroke: #0F6E56; stroke-width: 1; }
+      .chip-text { fill: #FFFFFF; }
+      .rejected-text { font-size: 9px; fill: #7C8A85; text-decoration: line-through; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="35" class="title">Keputusan Kunci &amp; Risiko</text>
+
+  <!-- PANEL A: ADR CARDS -->
+  <text x="20" y="75" class="panel-label">Keputusan Arsitektur (ADR)</text>
+
+  <!-- ADR-01 Card -->
+  <rect x="20" y="90" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="30" y="100" width="40" height="18" class="chip-id" rx="2" />
+  <text x="50" y="112" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-01</text>
+  <text x="30" y="132" class="label">EKS sebagai compute</text>
+  <text x="30" y="147" class="sublabel" font-weight="normal">Alasan: GitOps, canary,</text>
+  <text x="30" y="160" class="sublabel" font-weight="normal">NetworkPolicy, HPA</text>
+  <text x="30" y="178" class="small">✗ ECS (tooling isolasi</text>
+  <text x="30" y="189" class="small">terbatas)</text>
+
+  <!-- ADR-02 Card -->
+  <rect x="250" y="90" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="260" y="100" width="40" height="18" class="chip-id" rx="2" />
+  <text x="280" y="112" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-02</text>
+  <text x="260" y="132" class="label">Pooled PostgreSQL</text>
+  <text x="260" y="147" class="sublabel" font-weight="normal">+ partisi + RLS</text>
+  <text x="260" y="160" class="sublabel" font-weight="normal">Alasan: Hemat biaya,</text>
+  <text x="260" y="173" class="sublabel" font-weight="normal">migrasi 1x, isolasi di DB</text>
+  <text x="260" y="191" class="small">✗ DB per tenant (50+</text>
+  <text x="260" y="202" class="small">instans)</text>
+
+  <!-- ADR-03 Card -->
+  <rect x="480" y="90" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="490" y="100" width="40" height="18" class="chip-id" rx="2" />
+  <text x="510" y="112" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-03</text>
+  <text x="490" y="132" class="label">SET LOCAL +</text>
+  <text x="490" y="145" class="label">PgBouncer txn</text>
+  <text x="490" y="160" class="sublabel" font-weight="normal">Alasan: Konteks tak</text>
+  <text x="490" y="173" class="sublabel" font-weight="normal">bocor antar transaksi</text>
+  <text x="490" y="191" class="small">✗ Session pooling</text>
+  <text x="490" y="202" class="small">(max_connections habis)</text>
+
+  <!-- ADR-04 Card -->
+  <rect x="710" y="90" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="720" y="100" width="40" height="18" class="chip-id" rx="2" />
+  <text x="740" y="112" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-04</text>
+  <text x="720" y="132" class="label">Cloudflare edge +</text>
+  <text x="720" y="145" class="label">ALB terkunci</text>
+  <text x="720" y="160" class="sublabel" font-weight="normal">Alasan: Zero Trust</text>
+  <text x="720" y="173" class="sublabel" font-weight="normal">tanpa VPN, permukaan</text>
+  <text x="720" y="191" class="small">✗ CloudFront + VPN</text>
+  <text x="720" y="202" class="small">(2 sistem akses)</text>
+
+  <!-- ADR-05 Card -->
+  <rect x="20" y="240" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="30" y="250" width="40" height="18" class="chip-id" rx="2" />
+  <text x="50" y="262" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-05</text>
+  <text x="30" y="282" class="label">Amazon MQ +</text>
+  <text x="30" y="295" class="label">transactional outbox</text>
+  <text x="30" y="310" class="sublabel" font-weight="normal">Alasan: Broker managed,</text>
+  <text x="30" y="323" class="sublabel" font-weight="normal">event tak hilang</text>
+  <text x="30" y="341" class="small">✗ RabbitMQ di EKS</text>
+  <text x="30" y="352" class="small">(beban ops)</text>
+
+  <!-- ADR-06 Card -->
+  <rect x="250" y="240" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="260" y="250" width="40" height="18" class="chip-id" rx="2" />
+  <text x="280" y="262" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-06</text>
+  <text x="260" y="282" class="label">SLO per kelas +</text>
+  <text x="260" y="295" class="label">burn-rate alert</text>
+  <text x="260" y="310" class="sublabel" font-weight="normal">Alasan: Prioritas berdasar</text>
+  <text x="260" y="323" class="sublabel" font-weight="normal">dampak klinis</text>
+  <text x="260" y="341" class="small">✗ Satu target uptime</text>
+  <text x="260" y="352" class="small">global</text>
+
+  <!-- ADR-07 Card -->
+  <rect x="480" y="240" width="220" height="140" class="box-teal" rx="4" />
+  <rect x="490" y="250" width="40" height="18" class="chip-id" rx="2" />
+  <text x="510" y="262" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">ADR-07</text>
+  <text x="490" y="282" class="label">DR pilot light</text>
+  <text x="490" y="295" class="label">Singapore (Legal OK)</text>
+  <text x="490" y="310" class="sublabel" font-weight="normal">Alasan: RTO 2 jam,</text>
+  <text x="490" y="323" class="sublabel" font-weight="normal">biaya moderat</text>
+  <text x="490" y="341" class="small">✗ Warm standby</text>
+  <text x="490" y="352" class="small">(~2x biaya compute)</text>
+
+  <!-- PANEL B: RISK MATRIX -->
+  <text x="20" y="415" class="panel-label">Matriks Risiko (Severity Priority)</text>
+
+  <!-- Risk 1: KRITIS - Kebocoran lintas tenant -->
+  <rect x="20" y="430" width="960" height="65" class="box-clay" rx="4" />
+  <rect x="30" y="438" width="50" height="18" class="chip-id" rx="2" />
+  <text x="55" y="450" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">KRITIS</text>
+  <text x="100" y="452" class="label">Kebocoran lintas tenant</text>
+  <text x="100" y="467" class="sublabel">Mitigasi: FORCE RLS, SET LOCAL, 10 negative test, SEV1 runbook</text>
+  <text x="100" y="482" class="small">Sinyal: Audit 403 mismatch, DLQ header≠payload</text>
+
+  <!-- Risk 2: KRITIS - Salah konfigurasi PgBouncer -->
+  <rect x="20" y="505" width="960" height="65" class="box-clay" rx="4" />
+  <rect x="30" y="513" width="50" height="18" class="chip-id" rx="2" />
+  <text x="55" y="525" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">KRITIS</text>
+  <text x="100" y="527" class="label">Salah konfigurasi PgBouncer</text>
+  <text x="100" y="542" class="sublabel">Mitigasi: Test kasus lewat PgBouncer, config di Git</text>
+  <text x="100" y="557" class="small">Sinyal: Negative test gagal di pipeline</text>
+
+  <!-- Risk 3: TINGGI - Noisy neighbor -->
+  <rect x="20" y="580" width="960" height="65" class="box-indigo" rx="4" />
+  <rect x="30" y="588" width="50" height="18" class="chip-id" rx="2" />
+  <text x="55" y="600" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">TINGGI</text>
+  <text x="100" y="602" class="label">Noisy neighbor</text>
+  <text x="100" y="617" class="sublabel">Mitigasi: Rate limit, bulkhead, statement_timeout</text>
+  <text x="100" y="632" class="small">Sinyal: Latency &amp; wait time per tenant</text>
+
+  <!-- Risk 4: TINGGI - Migrasi kunci tabel klinis -->
+  <rect x="20" y="655" width="960" height="65" class="box-indigo" rx="4" />
+  <rect x="30" y="663" width="50" height="18" class="chip-id" rx="2" />
+  <text x="55" y="675" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">TINGGI</text>
+  <text x="100" y="677" class="label">Migrasi kunci tabel klinis</text>
+  <text x="100" y="692" class="sublabel">Mitigasi: Expand/contract, lock_timeout, index concurrently</text>
+  <text x="100" y="707" class="small">Sinyal: Lock wait &amp; p95 saat deploy</text>
+
+  <!-- Risk 5: SEDANG - Sizing meleset -->
+  <rect x="20" y="730" width="960" height="65" class="box-teal" rx="4" />
+  <rect x="30" y="738" width="50" height="18" class="chip-id" rx="2" />
+  <text x="55" y="750" text-anchor="middle" class="chip-text" font-weight="600" font-size="10">SEDANG</text>
+  <text x="100" y="752" class="label">Sizing meleset</text>
+  <text x="100" y="767" class="sublabel">Mitigasi: Load test 2x puncak, autoscaling</text>
+  <text x="100" y="782" class="small">Sinyal: Utilisasi saat onboarding tenant baru</text>
+
+</svg>

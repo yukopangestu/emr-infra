@@ -1,0 +1,226 @@
+<svg viewBox="0 0 1000 730" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 600; fill: #16211E; }
+      .matrix-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 600; fill: #16211E; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 12px; fill: #16211E; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #4A5A55; }
+      .cell-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #16211E; }
+      .box { fill: #FFFFFF; stroke: #D9E0DD; stroke-width: 1; }
+      .box-teal { fill: #E1EFE9; stroke: #8FC4B2; stroke-width: 1; }
+      .box-clay { fill: #F5E7E2; stroke: #DCAE9E; stroke-width: 1; }
+      .header { fill: #F8F9F9; stroke: #D9E0DD; stroke-width: 1; }
+      .line { stroke: #D9E0DD; stroke-width: 1; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Service Access Matrix</text>
+
+  <!-- ============ MATRIX 1: Service × Gateway ============ -->
+  <text x="50" y="75" class="matrix-title">Service × Gateway Access</text>
+
+  <!-- Header row -->
+  <rect x="50" y="85" width="130" height="24" class="header" rx="2" />
+  <text x="115" y="102" text-anchor="middle" class="label">Service</text>
+
+  <rect x="180" y="85" width="100" height="24" class="header" rx="2" />
+  <text x="230" y="102" text-anchor="middle" class="label">Public</text>
+
+  <rect x="280" y="85" width="100" height="24" class="header" rx="2" />
+  <text x="330" y="102" text-anchor="middle" class="label">Admin</text>
+
+  <!-- Service rows -->
+  <!-- Patient: ✓, ✓ -->
+  <rect x="50" y="109" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="127" text-anchor="middle" class="label">Patient</text>
+  <rect x="180" y="109" width="100" height="26" class="box-teal" rx="2" />
+  <text x="230" y="127" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="280" y="109" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="127" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Encounter: ✓, ✓ -->
+  <rect x="50" y="135" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="153" text-anchor="middle" class="label">Encounter</text>
+  <rect x="180" y="135" width="100" height="26" class="box-teal" rx="2" />
+  <text x="230" y="153" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="280" y="135" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="153" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Order: —, ✓ -->
+  <rect x="50" y="161" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="179" text-anchor="middle" class="label">Order</text>
+  <rect x="180" y="161" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="179" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="161" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="179" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Result: ✓, ✓ -->
+  <rect x="50" y="187" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="205" text-anchor="middle" class="label">Result</text>
+  <rect x="180" y="187" width="100" height="26" class="box-teal" rx="2" />
+  <text x="230" y="205" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="280" y="187" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="205" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Identity: —, ✓ -->
+  <rect x="50" y="213" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="231" text-anchor="middle" class="label">Identity</text>
+  <rect x="180" y="213" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="231" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="213" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="231" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Tenant: —, ✓ -->
+  <rect x="50" y="239" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="257" text-anchor="middle" class="label">Tenant</text>
+  <rect x="180" y="239" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="257" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="239" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="257" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Billing: —, ✓ -->
+  <rect x="50" y="265" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="283" text-anchor="middle" class="label">Billing</text>
+  <rect x="180" y="265" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="283" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="265" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="283" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Reporting: —, ✓ -->
+  <rect x="50" y="291" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="309" text-anchor="middle" class="label">Reporting</text>
+  <rect x="180" y="291" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="309" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="291" width="100" height="26" class="box-teal" rx="2" />
+  <text x="330" y="309" text-anchor="middle" class="cell-text">✓</text>
+
+  <!-- Audit: —, — -->
+  <rect x="50" y="317" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="335" text-anchor="middle" class="label">Audit</text>
+  <rect x="180" y="317" width="100" height="26" class="box" rx="2" />
+  <text x="230" y="335" text-anchor="middle" class="cell-text">—</text>
+  <rect x="280" y="317" width="100" height="26" class="box" rx="2" />
+  <text x="330" y="335" text-anchor="middle" class="cell-text">—</text>
+
+  <!-- ============ MATRIX 2: Service × Datastore ============ -->
+  <text x="50" y="380" class="matrix-title">Service × Datastore Access</text>
+
+  <!-- Header row -->
+  <rect x="50" y="390" width="130" height="24" class="header" rx="2" />
+  <text x="115" y="407" text-anchor="middle" class="label">Service</text>
+
+  <rect x="180" y="390" width="95" height="24" class="header" rx="2" />
+  <text x="227.5" y="407" text-anchor="middle" class="sublabel">RDS Prim</text>
+
+  <rect x="275" y="390" width="95" height="24" class="header" rx="2" />
+  <text x="322.5" y="407" text-anchor="middle" class="sublabel">RO Replica</text>
+
+  <rect x="370" y="390" width="95" height="24" class="header" rx="2" />
+  <text x="417.5" y="407" text-anchor="middle" class="sublabel">Redis</text>
+
+  <rect x="465" y="390" width="95" height="24" class="header" rx="2" />
+  <text x="512.5" y="407" text-anchor="middle" class="sublabel">Amazon MQ</text>
+
+  <!-- Gateway: —, —, ✓ sesi, — -->
+  <rect x="50" y="414" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="432" text-anchor="middle" class="label">Gateway</text>
+  <rect x="180" y="414" width="95" height="26" class="box" rx="2" />
+  <text x="227.5" y="432" text-anchor="middle" class="cell-text">—</text>
+  <rect x="275" y="414" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="432" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="414" width="95" height="26" class="box-teal" rx="2" />
+  <text x="417.5" y="428" text-anchor="middle" class="cell-text">✓</text>
+  <text x="417.5" y="438" text-anchor="middle" class="sublabel">sesi</text>
+  <rect x="465" y="414" width="95" height="26" class="box" rx="2" />
+  <text x="512.5" y="432" text-anchor="middle" class="cell-text">—</text>
+
+  <!-- Patient: ✓, —, ✓ cache, publish -->
+  <rect x="50" y="440" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="458" text-anchor="middle" class="label">Patient</text>
+  <rect x="180" y="440" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="458" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="275" y="440" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="458" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="440" width="95" height="26" class="box-teal" rx="2" />
+  <text x="417.5" y="452" text-anchor="middle" class="cell-text">✓</text>
+  <text x="417.5" y="462" text-anchor="middle" class="sublabel">cache</text>
+  <rect x="465" y="440" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="458" text-anchor="middle" class="sublabel">publish</text>
+
+  <!-- Encounter: ✓, —, —, publish -->
+  <rect x="50" y="466" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="484" text-anchor="middle" class="label">Encounter</text>
+  <rect x="180" y="466" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="484" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="275" y="466" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="484" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="466" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="484" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="466" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="484" text-anchor="middle" class="sublabel">publish</text>
+
+  <!-- Order: ✓, —, —, publish -->
+  <rect x="50" y="492" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="510" text-anchor="middle" class="label">Order</text>
+  <rect x="180" y="492" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="510" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="275" y="492" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="510" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="492" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="510" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="492" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="510" text-anchor="middle" class="sublabel">publish</text>
+
+  <!-- Result: ✓, —, —, pub+consume -->
+  <rect x="50" y="518" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="536" text-anchor="middle" class="label">Result</text>
+  <rect x="180" y="518" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="536" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="275" y="518" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="536" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="518" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="536" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="518" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="528" text-anchor="middle" class="sublabel">pub +</text>
+  <text x="512.5" y="538" text-anchor="middle" class="sublabel">consume</text>
+
+  <!-- Billing: ✓, —, —, pub+consume -->
+  <rect x="50" y="544" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="562" text-anchor="middle" class="label">Billing</text>
+  <rect x="180" y="544" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="562" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="275" y="544" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="562" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="544" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="562" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="544" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="554" text-anchor="middle" class="sublabel">pub +</text>
+  <text x="512.5" y="564" text-anchor="middle" class="sublabel">consume</text>
+
+  <!-- Reporting: —, ✓, —, — -->
+  <rect x="50" y="570" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="588" text-anchor="middle" class="label">Reporting</text>
+  <rect x="180" y="570" width="95" height="26" class="box" rx="2" />
+  <text x="227.5" y="588" text-anchor="middle" class="cell-text">—</text>
+  <rect x="275" y="570" width="95" height="26" class="box-teal" rx="2" />
+  <text x="322.5" y="588" text-anchor="middle" class="cell-text">✓</text>
+  <rect x="370" y="570" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="588" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="570" width="95" height="26" class="box" rx="2" />
+  <text x="512.5" y="588" text-anchor="middle" class="cell-text">—</text>
+
+  <!-- Audit: ✓ append-only, —, —, consume -->
+  <rect x="50" y="596" width="130" height="26" class="box" rx="2" />
+  <text x="115" y="614" text-anchor="middle" class="label">Audit</text>
+  <rect x="180" y="596" width="95" height="26" class="box-teal" rx="2" />
+  <text x="227.5" y="608" text-anchor="middle" class="sublabel">✓</text>
+  <text x="227.5" y="618" text-anchor="middle" class="sublabel">append</text>
+  <rect x="275" y="596" width="95" height="26" class="box" rx="2" />
+  <text x="322.5" y="614" text-anchor="middle" class="cell-text">—</text>
+  <rect x="370" y="596" width="95" height="26" class="box" rx="2" />
+  <text x="417.5" y="614" text-anchor="middle" class="cell-text">—</text>
+  <rect x="465" y="596" width="95" height="26" class="box-clay" rx="2" />
+  <text x="512.5" y="614" text-anchor="middle" class="sublabel">consume</text>
+
+</svg>

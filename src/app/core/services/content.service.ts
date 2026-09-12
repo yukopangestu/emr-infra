@@ -1,31 +1,13 @@
 import { Injectable } from '@angular/core';
 import { architectureData } from '../../../assets/data/architecture.data';
 
-export interface Table {
-  headers: string[];
-  rows: string[][];
-}
-
-export interface Callout {
-  type: 'info' | 'warning' | 'note';
-  content: string;
-}
-
 export interface Section {
   id: string;
   number: number;
   title: string;
   content: string;
-  subheading?: string;
-  subheadingDescription?: string;
-  diagram?: { file: string; caption: string };
-  diagrams?: { file: string; caption: string }[];
-  tables?: Table[];
-  callouts?: Callout[];
-  cards?: { title: string; description: string }[];
-  steps?: { title: string; description: string; isGate?: boolean }[];
-  numberedList?: string[];
-  postContent?: string[];
+  diagram?: { file: string; caption?: string };
+  diagrams?: { file: string; caption?: string }[];
 }
 
 export interface ArchitectureData {

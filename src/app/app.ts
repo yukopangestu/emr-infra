@@ -1,21 +1,17 @@
 import { Component, inject } from '@angular/core';
 
 import { AnalyticsService } from './core/services/analytics.service';
-import { ContentService, Section } from './core/services/content.service';
+import { ContentService } from './core/services/content.service';
 import { SearchResult, SearchService } from './core/services/search.service';
-import { CalloutComponent } from './shared/components/callout/callout.component';
 import { DiagramBoxComponent } from './shared/components/diagram-box/diagram-box.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SidebarNavComponent } from './shared/components/sidebar-nav/sidebar-nav.component';
-import { TableComponentComponent } from './shared/components/table-component/table-component.component';
 
 @Component({
   imports: [
-    CalloutComponent,
     DiagramBoxComponent,
     HeaderComponent,
     SidebarNavComponent,
-    TableComponentComponent,
   ],
   selector: 'app-root',
   styleUrl: './app.scss',
@@ -37,10 +33,6 @@ export class App {
 
   constructor() {
     this.searchService.buildIndex(this.sections);
-  }
-
-  getParagraphs(section: Section): string[] {
-    return section.content.split(/\n\s*\n/).filter((paragraph) => paragraph.trim().length > 0);
   }
 
   onSearch(query: string): void {
