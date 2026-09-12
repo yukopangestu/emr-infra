@@ -1,55 +1,6 @@
-<app-header
-  (menuToggle)="toggleSidebar()"
-  (openSearch)="openSearch()"
-  (search)="onSearch($event)"
-/> 
-
-<div class="app-layout">
-  <app-sidebar-nav
-    [mobileOpen]="sidebarOpen"
-    [sections]="sections"
-    (navigate)="jumpToSection($event)"
-  />
-
-  @if (searchOpen) {
-    <div class="search-backdrop" (click)="closeSearch()"></div>
-    <section class="search-panel" aria-label="Hasil pencarian">
-      <div class="search-panel-header">
-        <span>Hasil pencarian untuk <b>{{ searchQuery }}</b></span>
-        <button type="button" class="search-close" (click)="closeSearch()" aria-label="Tutup pencarian">×</button>
-      </div>
-      @if (searchResults.length > 0) {
-        @for (result of searchResults; track result.id) {
-          <button type="button" class="search-result" (click)="jumpToSection(result.id)">
-            <span class="search-result-title">{{ result.title }}</span>
-            <span class="search-result-excerpt">{{ result.excerpt }}</span>
-          </button>
-        }
-      } @else {
-        <p class="search-empty">Tidak ada bagian yang cocok.</p>
-      }
-    </section>
-  }
-
-  <main class="document" id="main-content">
-    @for (section of sections; track section.id) {
-      <section class="document-section" [id]="section.id">
-        @if (section.diagram) {
-          <app-diagram-box
-            [altText]="section.title"
-            [caption]="section.diagram.caption"
-            [diagramFile]="section.diagram.file"
-          />
-        }
-
-        @for (diagram of section.diagrams ?? []; track diagram.file) {
-          <app-diagram-box
-            [altText]="section.title"
-            [caption]="diagram.caption"
-            [diagramFile]="diagram.file"
-          />
-        }
-      </section>
-    }
-  </main>
-</div>
+<main>
+  <section class="hero" aria-labelledby="page-title"><div class="hero-copy"><p class="eyebrow">LEARNING PATH · BACKEND → INFRA</p><h1 id="page-title">Belajar membangun dan <em>menjaga</em> sistem.</h1><p class="lede">Roadmap 8 minggu untuk mengubah teori networking menjadi kemampuan troubleshooting, architecture review, dan operasi sistem yang nyata.</p><div class="hero-actions"><a class="primary-action" href="#roadmap">Mulai dari minggu 1 <span>↓</span></a><span class="small-note">1 minggu · 1 fokus · 1 latihan nyata</span></div></div><aside class="progress-card" aria-label="Kemajuan belajar"><div class="progress-top"><span>PROGRES SAYA</span><b>{{ progress }}%</b></div><div class="progress-track"><span [style.width.%]="progress"></span></div><p>{{ completed.size }} dari {{ weeks.length }} fondasi telah ditandai selesai.</p><div class="progress-dots">@for (week of weeks; track week.id) { <button type="button" [class.done]="completed.has(week.id)" [attr.aria-label]="'Minggu ' + week.id" (click)="selectWeek(week.id)">{{ week.id }}</button> }</div></aside></section>
+  <section class="principle" aria-label="Tujuan belajar"><p class="label">TARGET AKHIR</p><p>Bukan menghafal istilah. Saat melihat <code>connection timed out</code>, kamu bisa memetakan: DNS → IP → route → firewall → port → aplikasi → kapasitas koneksi.</p></section>
+  <section class="roadmap" id="roadmap" aria-labelledby="roadmap-title"><div class="section-heading"><div><p class="eyebrow">KURIKULUM</p><h2 id="roadmap-title">Satu jalur, dibangun berlapis.</h2></div><p>Mulai dari jaringan dan server; kemudian data, container, orkestrasi, hingga reliability.</p></div><div class="timeline" aria-label="Daftar modul pembelajaran">@for (week of weeks; track week.id) { <article class="week-card" [class.active]="activeWeek === week.id" [class.completed]="completed.has(week.id)" [id]="'week-' + week.id"><div class="week-marker"><span>{{ week.id.toString().padStart(2, '0') }}</span></div><div class="week-main"><p class="week-kicker">{{ week.kicker }}</p><h3>{{ week.title }}</h3><p class="outcome">{{ week.outcome }}</p><div class="week-grid"><div><p class="micro-label">PELAJARI</p><ul>@for (topic of week.topics; track topic) { <li>{{ topic }}</li> }</ul></div><div class="practice"><p class="micro-label">LATIHAN NYATA</p><p>{{ week.practice }}</p></div></div>@if (week.tools) { <p class="tools"><span>Tools:</span> @for (tool of week.tools; track tool) { <code>{{ tool }}</code> }</p> }</div><button class="complete-button" type="button" (click)="toggleComplete(week.id)" [attr.aria-pressed]="completed.has(week.id)"><span class="check">{{ completed.has(week.id) ? '✓' : '' }}</span>{{ completed.has(week.id) ? 'Selesai' : 'Tandai selesai' }}</button></article> }</div></section>
+  <section class="now" aria-labelledby="now-title"><div><p class="eyebrow">MULAI HARI INI</p><h2 id="now-title">Jangan buru-buru ke Kubernetes.</h2></div><p>Nilai terbesar untuk backend engineer ada pada Linux dan PostgreSQL infra setelah networking. Kuasai dulu cara sistem gagal; nanti tool apa pun akan terasa lebih masuk akal.</p></section>
+</main>

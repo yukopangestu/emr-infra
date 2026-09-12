@@ -1,71 +1,22 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { AnalyticsService } from './core/services/analytics.service';
-import { ContentService } from './core/services/content.service';
-import { SearchResult, SearchService } from './core/services/search.service';
-import { DiagramBoxComponent } from './shared/components/diagram-box/diagram-box.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { SidebarNavComponent } from './shared/components/sidebar-nav/sidebar-nav.component';
+interface Week { id: number; title: string; kicker: string; outcome: string; topics: string[]; practice: string; tools?: string[]; }
 
-@Component({
-  imports: [
-    DiagramBoxComponent,
-    HeaderComponent,
-    SidebarNavComponent,
-  ],
-  selector: 'app-root',
-  styleUrl: './app.scss',
-  templateUrl: './app.html',
-})
-export class App {
-  private readonly contentService = inject(ContentService);
-  private readonly searchService = inject(SearchService);
-  private readonly analyticsService = inject(AnalyticsService);
-
-  readonly architecture = this.contentService.getArchitectureData();
-  readonly sections = this.architecture.sections;
-  readonly metadata = Object.entries(this.architecture.metadata);
-
-  searchQuery = '';
-  searchResults: SearchResult[] = [];
-  searchOpen = false;
-  sidebarOpen = false;
-
-  constructor() {
-    this.searchService.buildIndex(this.sections);
-  }
-
-  onSearch(query: string): void {
-    this.searchQuery = query;
-    this.searchResults = query.trim().length >= 2 ? this.searchService.search(query) : [];
-    this.searchOpen = query.trim().length >= 2;
-
-    if (query.trim().length >= 2) {
-      this.analyticsService.trackSearch(query.trim(), this.searchResults.length);
-    }
-  }
-
-  openSearch(): void {
-    this.searchOpen = this.searchQuery.trim().length >= 2;
-  }
-
-  closeSearch(): void {
-    this.searchOpen = false;
-  }
-
-  jumpToSection(id: string): void {
-    if (typeof document !== 'undefined') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    this.closeSearch();
-    this.sidebarOpen = false;
-    const section = this.contentService.getSectionById(id);
-    if (section) {
-      this.analyticsService.trackPageView(section.id, section.title);
-    }
-  }
-
-  toggleSidebar(): void {
-    this.sidebarOpen = !this.sidebarOpen;
-  }
+@Component({ selector: 'app-root', templateUrl: './app.html', styleUrl: './app.scss' })
+export class App implements OnInit {
+  readonly weeks: Week[] = [
+    { id: 1, kicker: 'Fondasi koneksi', title: 'Networking untuk backend', outcome: 'Mampu membaca jalur request dan mencari titik putus koneksi.', topics: ['IP private/public, subnet, CIDR', 'DNS, port, TCP handshake', 'Routing, NAT, ingress & egress', 'Firewall, security group, TLS'], practice: 'Telusuri flow: browser → DNS → load balancer → API → PostgreSQL. Untuk tiap hop, sebutkan IP, port, dan aturan yang harus lolos.', tools: ['dig', 'curl', 'ss', 'traceroute'] },
+    { id: 2, kicker: 'Server reality', title: 'Linux & runtime behavior', outcome: 'Tahu pemeriksaan pertama saat server lambat atau proses mati.', topics: ['Process, PID, systemd, logs', 'CPU, memory, disk, file permission', 'Port listening & open files', 'Service lifecycle dan graceful shutdown'], practice: 'Jalankan aplikasi sederhana sebagai service. Simulasikan process crash, disk penuh, dan port bentrok; tulis langkah diagnosisnya.', tools: ['ps', 'top', 'df', 'free', 'lsof', 'journalctl'] },
+    { id: 3, kicker: 'Di depan aplikasi', title: 'HTTP, NGINX & TLS', outcome: 'Memahami request lifecycle sampai TLS termination.', topics: ['HTTP request/response dan header', 'Keep-alive, timeout, connection reuse', 'Reverse proxy dan load balancing', 'Certificate & TLS termination'], practice: 'Pasang NGINX di depan dua backend lokal. Atur health check, timeout, dan path routing untuk dua endpoint.', tools: ['curl -v', 'nginx', 'openssl s_client'] },
+    { id: 4, kicker: 'Data yang tahan gangguan', title: 'PostgreSQL infrastructure', outcome: 'Dapat menilai risiko koneksi, performa, dan recovery database.', topics: ['Connection pooling & max connections', 'Primary/replica dan replication lag', 'Transaction, lock, slow query', 'Backup, restore, PITR, disk IOPS'], practice: 'Hubungkan app → PgBouncer → PostgreSQL. Buat satu slow query, lihat lock-nya, lalu latihan restore dari backup.', tools: ['psql', 'pg_stat_activity', 'pg_dump', 'pg_restore'] },
+    { id: 5, kicker: 'Asynchronous systems', title: 'Redis & RabbitMQ', outcome: 'Tahu kapan cache dan queue malah menjadi sumber masalah.', topics: ['Redis TTL, eviction, persistence', 'Cache invalidation & cache stampede', 'Ack/nack, prefetch, retry, DLQ', 'Consumer lag, durability, backpressure'], practice: 'Buat worker dengan retry dan DLQ. Tambahkan cache dengan TTL, lalu uji apa yang terjadi ketika key populer expired bersamaan.', tools: ['redis-cli', 'rabbitmqctl'] },
+    { id: 6, kicker: 'Packaging runtime', title: 'Docker', outcome: 'Bisa membuat container yang aman, kecil, dan berhenti dengan benar.', topics: ['Image, container, layer, volume', 'Docker network & environment variable', 'Resource limit dan PID 1', 'Signal handling & graceful shutdown'], practice: 'Containerize API + PostgreSQL lokal. Batasi memory container dan pastikan aplikasi menangani SIGTERM sebelum berhenti.', tools: ['docker ps', 'docker logs', 'docker stats'] },
+    { id: 7, kicker: 'Orkestrasi', title: 'Kubernetes', outcome: 'Mengerti alasan di balik object Kubernetes, bukan sekadar menulis YAML.', topics: ['Pod, Deployment, Service, Ingress', 'ConfigMap, Secret, requests/limits', 'Liveness, readiness, HPA', 'StatefulSet & PersistentVolume'], practice: 'Deploy API sederhana, tambahkan readiness probe, lalu amati traffic saat pod di-restart dan saat satu pod gagal.', tools: ['kubectl get', 'kubectl describe', 'kubectl logs'] },
+    { id: 8, kicker: 'Operate with confidence', title: 'Observability, HA & DR', outcome: 'Mampu menalar insiden dengan sinyal yang tepat dan mendesain pemulihan.', topics: ['Logs, metrics, traces', 'Latency, errors, throughput, saturation', 'Timeout, retry, circuit breaker, idempotency', 'HA, RPO/RTO, backup & disaster recovery'], practice: 'Definisikan SLI/SLO untuk API. Buat runbook untuk database unavailable dan tetapkan RPO/RTO yang realistis.', tools: ['Grafana', 'Prometheus', 'OpenTelemetry'] },
+  ];
+  completed = new Set<number>(); activeWeek = 1;
+  ngOnInit(): void { if (typeof localStorage === 'undefined') return; const saved = localStorage.getItem('infra-learning-progress'); if (saved) this.completed = new Set(JSON.parse(saved) as number[]); }
+  get progress(): number { return Math.round((this.completed.size / this.weeks.length) * 100); }
+  toggleComplete(id: number): void { const next = new Set(this.completed); next.has(id) ? next.delete(id) : next.add(id); this.completed = next; localStorage.setItem('infra-learning-progress', JSON.stringify([...next])); }
+  selectWeek(id: number): void { this.activeWeek = id; document.getElementById(`week-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
 }
