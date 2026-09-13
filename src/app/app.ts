@@ -8,7 +8,7 @@ interface NavItem { id: string; label: string; }
 export class App implements AfterViewInit {
   readonly environments = environments;
   readonly nav: NavItem[] = [
-    { id: 'overview', label: 'Overview' }, { id: 'diagram', label: 'Master Diagram' }, { id: 'routing', label: 'Routing Matrix' },
+    { id: 'overview', label: 'Overview' }, { id: 'diagram', label: 'Master Diagram' }, { id: 'routing', label: 'Routing Matrix' }, { id: 'tenancy', label: 'Tenant Isolation' },
     { id: 'placement', label: 'Host Placement' }, { id: 'security', label: 'Network & Security' }, { id: 'secrets', label: 'Encryption & Secrets' },
     { id: 'dr', label: 'Backup & DR' }, { id: 'observability', label: 'Observability' }, { id: 'cicd', label: 'CI/CD' }, { id: 'cost', label: 'Cost Estimation' },
   ];

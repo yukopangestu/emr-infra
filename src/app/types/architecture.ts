@@ -24,5 +24,10 @@ export interface EnvironmentDefinition {
   database: string;
   backup: string;
   security: string;
+  tenancy: {
+    database: string;
+    provisioning: string;
+    recovery: string;
+  };
   nodes: ArchitectureNode[];
 }
