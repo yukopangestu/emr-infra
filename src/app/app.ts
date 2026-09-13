@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, HostListener } from '@angular/core';
 import { environments } from './data/environments';
 import { ArchitectureNode, EnvironmentDefinition, EnvironmentId } from './types/architecture';
 
@@ -16,6 +16,7 @@ export class App implements AfterViewInit {
   activeSection = 'overview';
   selectedNode: ArchitectureNode | null = null;
   diagramScale = 1;
+  @HostBinding('class.light-theme') isLight = false;
   readonly services = ['Clinic', 'Transaction', 'Core', 'HR', 'Utility', 'Patient', 'Encounter', 'Clinical', 'Billing', 'Integration'];
 
   get selected(): EnvironmentDefinition { return this.environments.find((env) => env.id === this.selectedId)!; }
@@ -24,8 +25,15 @@ export class App implements AfterViewInit {
   selectNode(node: ArchitectureNode): void { this.selectedNode = node; }
   zoom(delta: number): void { this.diagramScale = Math.max(.72, Math.min(1.35, this.diagramScale + delta)); }
   resetView(): void { this.diagramScale = 1; this.selectedNode = null; }
+  toggleTheme(): void {
+    this.isLight = !this.isLight;
+    if (typeof localStorage !== 'undefined') localStorage.setItem('emr-architecture-theme', this.isLight ? 'light' : 'dark');
+  }
   scrollTo(id: string): void { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  ngAfterViewInit(): void { this.updateActive(); }
+  ngAfterViewInit(): void {
+    if (typeof localStorage !== 'undefined') this.isLight = localStorage.getItem('emr-architecture-theme') === 'light';
+    this.updateActive();
+  }
   @HostListener('window:scroll') onScroll(): void { this.updateActive(); }
   private updateActive(): void { const hit = this.nav.find(({ id }) => { const el = document.getElementById(id); return el ? el.getBoundingClientRect().top >= 80 && el.getBoundingClientRect().top < 320 : false; }); if (hit) this.activeSection = hit.id; }
 }
