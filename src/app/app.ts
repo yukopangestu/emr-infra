@@ -16,7 +16,7 @@ export class App implements AfterViewInit {
   selectedNode: ArchitectureNode | null = null;
   diagramScale = 1;
   @HostBinding('class.light-theme') isLight = false;
-  readonly services = ['Clinic', 'Transaction', 'Core', 'HR', 'Utility', 'Patient', 'Encounter', 'Clinical', 'Billing', 'Integration', 'Tenant'];
+  readonly services = ['Clinic', 'Transaction', 'Core', 'HR', 'Utility', 'Patient', 'Encounter', 'Clinical', 'Billing', 'Integration', 'Tenant', 'User'];
 
   get selected(): EnvironmentDefinition { return this.environments.find((env) => env.id === this.selectedId)!; }
   get zoneNodes(): Record<string, ArchitectureNode[]> { return this.selected.nodes.reduce<Record<string, ArchitectureNode[]>>((acc, node) => { (acc[node.zone] ??= []).push(node); return acc; }, {}); }
