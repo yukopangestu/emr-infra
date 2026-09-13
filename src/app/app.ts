@@ -9,7 +9,7 @@ export class App implements AfterViewInit {
   readonly environments = environments;
   readonly nav: NavItem[] = [
     { id: 'overview', label: 'Overview' }, { id: 'diagram', label: 'Master Diagram' }, { id: 'routing', label: 'Routing Matrix' }, { id: 'tenancy', label: 'Tenant Isolation' },
-    { id: 'dr', label: 'Backup & DR' }, { id: 'observability', label: 'Observability' }, { id: 'cicd', label: 'CI/CD' }, { id: 'cost', label: 'Cost Estimation' },
+    { id: 'dr', label: 'Backup & DR' }, { id: 'observability', label: 'Observability' }, { id: 'cost', label: 'Cost Estimation' },
   ];
   selectedId: EnvironmentId = 'ideal';
   activeSection = 'overview';
