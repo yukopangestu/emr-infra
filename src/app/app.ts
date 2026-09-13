@@ -21,8 +21,10 @@ export class App implements AfterViewInit {
 
   get selected(): EnvironmentDefinition { return this.environments.find((env) => env.id === this.selectedId)!; }
   get zoneNodes(): Record<string, ArchitectureNode[]> { return this.selected.nodes.reduce<Record<string, ArchitectureNode[]>>((acc, node) => { (acc[node.zone] ??= []).push(node); return acc; }, {}); }
+  get applicationComponents(): ArchitectureNode[] { return (this.zoneNodes['application'] ?? []).filter((node) => node.id !== 'services'); }
   selectEnvironment(id: EnvironmentId): void { this.selectedId = id; this.selectedNode = null; this.diagramScale = 1; }
   selectNode(node: ArchitectureNode): void { this.selectedNode = node; }
+  selectServiceGroup(): void { const node = this.selected.nodes.find((item) => item.id === 'services'); if (node) this.selectNode(node); }
   zoom(delta: number): void { this.diagramScale = Math.max(.72, Math.min(1.35, this.diagramScale + delta)); }
   resetView(): void { this.diagramScale = 1; this.selectedNode = null; }
   toggleTheme(): void {
