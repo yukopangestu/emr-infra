@@ -1,22 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { environments } from './data/environments';
+import { ArchitectureNode, EnvironmentDefinition, EnvironmentId } from './types/architecture';
 
-interface Week { id: number; title: string; kicker: string; outcome: string; topics: string[]; practice: string; tools?: string[]; }
+interface NavItem { id: string; label: string; }
 
 @Component({ selector: 'app-root', templateUrl: './app.html', styleUrl: './app.scss' })
-export class App implements OnInit {
-  readonly weeks: Week[] = [
-    { id: 1, kicker: 'Fondasi koneksi', title: 'Networking untuk backend', outcome: 'Mampu membaca jalur request dan mencari titik putus koneksi.', topics: ['IP private/public, subnet, CIDR', 'DNS, port, TCP handshake', 'Routing, NAT, ingress & egress', 'Firewall, security group, TLS'], practice: 'Telusuri flow: browser → DNS → load balancer → API → PostgreSQL. Untuk tiap hop, sebutkan IP, port, dan aturan yang harus lolos.', tools: ['dig', 'curl', 'ss', 'traceroute'] },
-    { id: 2, kicker: 'Server reality', title: 'Linux & runtime behavior', outcome: 'Tahu pemeriksaan pertama saat server lambat atau proses mati.', topics: ['Process, PID, systemd, logs', 'CPU, memory, disk, file permission', 'Port listening & open files', 'Service lifecycle dan graceful shutdown'], practice: 'Jalankan aplikasi sederhana sebagai service. Simulasikan process crash, disk penuh, dan port bentrok; tulis langkah diagnosisnya.', tools: ['ps', 'top', 'df', 'free', 'lsof', 'journalctl'] },
-    { id: 3, kicker: 'Di depan aplikasi', title: 'HTTP, NGINX & TLS', outcome: 'Memahami request lifecycle sampai TLS termination.', topics: ['HTTP request/response dan header', 'Keep-alive, timeout, connection reuse', 'Reverse proxy dan load balancing', 'Certificate & TLS termination'], practice: 'Pasang NGINX di depan dua backend lokal. Atur health check, timeout, dan path routing untuk dua endpoint.', tools: ['curl -v', 'nginx', 'openssl s_client'] },
-    { id: 4, kicker: 'Data yang tahan gangguan', title: 'PostgreSQL infrastructure', outcome: 'Dapat menilai risiko koneksi, performa, dan recovery database.', topics: ['Connection pooling & max connections', 'Primary/replica dan replication lag', 'Transaction, lock, slow query', 'Backup, restore, PITR, disk IOPS'], practice: 'Hubungkan app → PgBouncer → PostgreSQL. Buat satu slow query, lihat lock-nya, lalu latihan restore dari backup.', tools: ['psql', 'pg_stat_activity', 'pg_dump', 'pg_restore'] },
-    { id: 5, kicker: 'Asynchronous systems', title: 'Redis & RabbitMQ', outcome: 'Tahu kapan cache dan queue malah menjadi sumber masalah.', topics: ['Redis TTL, eviction, persistence', 'Cache invalidation & cache stampede', 'Ack/nack, prefetch, retry, DLQ', 'Consumer lag, durability, backpressure'], practice: 'Buat worker dengan retry dan DLQ. Tambahkan cache dengan TTL, lalu uji apa yang terjadi ketika key populer expired bersamaan.', tools: ['redis-cli', 'rabbitmqctl'] },
-    { id: 6, kicker: 'Packaging runtime', title: 'Docker', outcome: 'Bisa membuat container yang aman, kecil, dan berhenti dengan benar.', topics: ['Image, container, layer, volume', 'Docker network & environment variable', 'Resource limit dan PID 1', 'Signal handling & graceful shutdown'], practice: 'Containerize API + PostgreSQL lokal. Batasi memory container dan pastikan aplikasi menangani SIGTERM sebelum berhenti.', tools: ['docker ps', 'docker logs', 'docker stats'] },
-    { id: 7, kicker: 'Orkestrasi', title: 'Kubernetes', outcome: 'Mengerti alasan di balik object Kubernetes, bukan sekadar menulis YAML.', topics: ['Pod, Deployment, Service, Ingress', 'ConfigMap, Secret, requests/limits', 'Liveness, readiness, HPA', 'StatefulSet & PersistentVolume'], practice: 'Deploy API sederhana, tambahkan readiness probe, lalu amati traffic saat pod di-restart dan saat satu pod gagal.', tools: ['kubectl get', 'kubectl describe', 'kubectl logs'] },
-    { id: 8, kicker: 'Operate with confidence', title: 'Observability, HA & DR', outcome: 'Mampu menalar insiden dengan sinyal yang tepat dan mendesain pemulihan.', topics: ['Logs, metrics, traces', 'Latency, errors, throughput, saturation', 'Timeout, retry, circuit breaker, idempotency', 'HA, RPO/RTO, backup & disaster recovery'], practice: 'Definisikan SLI/SLO untuk API. Buat runbook untuk database unavailable dan tetapkan RPO/RTO yang realistis.', tools: ['Grafana', 'Prometheus', 'OpenTelemetry'] },
+export class App implements AfterViewInit {
+  readonly environments = environments;
+  readonly nav: NavItem[] = [
+    { id: 'overview', label: 'Overview' }, { id: 'diagram', label: 'Master Diagram' }, { id: 'routing', label: 'Routing Matrix' },
+    { id: 'placement', label: 'Host Placement' }, { id: 'security', label: 'Network & Security' }, { id: 'secrets', label: 'Encryption & Secrets' },
+    { id: 'dr', label: 'Backup & DR' }, { id: 'observability', label: 'Observability' }, { id: 'cicd', label: 'CI/CD' }, { id: 'cost', label: 'Cost Estimation' },
   ];
-  completed = new Set<number>(); activeWeek = 1;
-  ngOnInit(): void { if (typeof localStorage === 'undefined') return; const saved = localStorage.getItem('infra-learning-progress'); if (saved) this.completed = new Set(JSON.parse(saved) as number[]); }
-  get progress(): number { return Math.round((this.completed.size / this.weeks.length) * 100); }
-  toggleComplete(id: number): void { const next = new Set(this.completed); next.has(id) ? next.delete(id) : next.add(id); this.completed = next; localStorage.setItem('infra-learning-progress', JSON.stringify([...next])); }
-  selectWeek(id: number): void { this.activeWeek = id; document.getElementById(`week-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  selectedId: EnvironmentId = 'ideal';
+  activeSection = 'overview';
+  selectedNode: ArchitectureNode | null = null;
+  diagramScale = 1;
+  readonly services = ['Clinic', 'Transaction', 'Core', 'HR', 'Utility', 'Patient', 'Encounter', 'Clinical', 'Billing', 'Integration'];
+
+  get selected(): EnvironmentDefinition { return this.environments.find((env) => env.id === this.selectedId)!; }
+  get zoneNodes(): Record<string, ArchitectureNode[]> { return this.selected.nodes.reduce<Record<string, ArchitectureNode[]>>((acc, node) => { (acc[node.zone] ??= []).push(node); return acc; }, {}); }
+  selectEnvironment(id: EnvironmentId): void { this.selectedId = id; this.selectedNode = null; this.diagramScale = 1; }
+  selectNode(node: ArchitectureNode): void { this.selectedNode = node; }
+  zoom(delta: number): void { this.diagramScale = Math.max(.72, Math.min(1.35, this.diagramScale + delta)); }
+  resetView(): void { this.diagramScale = 1; this.selectedNode = null; }
+  scrollTo(id: string): void { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  ngAfterViewInit(): void { this.updateActive(); }
+  @HostListener('window:scroll') onScroll(): void { this.updateActive(); }
+  private updateActive(): void { const hit = this.nav.find(({ id }) => { const el = document.getElementById(id); return el ? el.getBoundingClientRect().top >= 80 && el.getBoundingClientRect().top < 320 : false; }); if (hit) this.activeSection = hit.id; }
 }
