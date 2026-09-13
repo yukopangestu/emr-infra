@@ -16,7 +16,7 @@ const baseNodes = [
   { id: 'queue', name: 'Event Queue', kind: 'SQS + DLQ', zone: 'platform', purpose: 'Durable asynchronous integration events', port: 'HTTPS', ha: true },
   { id: 's3', name: 'Medical Documents', kind: 'Amazon S3', zone: 'platform', purpose: 'Reports, consent forms and attachments', port: 'HTTPS', ha: true },
   { id: 'registry', name: 'Tenant Registry', kind: 'Control Plane', zone: 'platform', purpose: 'Maps a verified tenant to its DB endpoint and scoped secret', port: 'HTTPS', ha: true },
-  { id: 'audit', name: 'Audit Log', kind: 'Append-only audit stream', zone: 'platform', purpose: 'Immutable record of reads, writes, exports, restores and administrative actions', port: 'HTTPS', ha: true },
+  { id: 'audit', name: 'Audit Log Service', kind: 'Append-only audit aggregator', zone: 'platform', purpose: 'Aggregates immutable events from every service into one tamper-evident audit store for reads, writes, exports, restores and administrative actions', port: 'HTTPS', ha: true },
   { id: 'satu', name: 'SATUSEHAT / Partners', kind: 'External APIs', zone: 'external', purpose: 'FHIR and partner integrations', port: '443', ha: false },
 ] as const;
 
